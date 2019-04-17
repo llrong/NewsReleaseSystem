@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rong.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.rong.web.pojo.Comment" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="newsId" property="newsId" jdbcType="INTEGER" />
+    <result column="commentContent" property="commentContent" jdbcType="VARCHAR" />
+    <result column="owerId" property="owerId" jdbcType="INTEGER" />
+    <result column="ower" property="ower" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="INTEGER" />
+    <result column="isCheck" property="isCheck" jdbcType="TINYINT" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, newsId, commentContent, owerId, ower, created, isCheck, deleted, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rong.web.pojo.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.rong.web.pojo.Comment" useGeneratedKeys="true" keyProperty="id" >
+    insert into comment (newsId, commentContent, owerId, 
+      ower, created, isCheck, 
+      deleted, remark)
+    values (#{newsId,jdbcType=INTEGER}, #{commentContent,jdbcType=VARCHAR}, #{owerId,jdbcType=INTEGER}, 
+      #{ower,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, #{isCheck,jdbcType=TINYINT}, 
+      #{deleted,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rong.web.pojo.Comment" useGeneratedKeys="true" keyProperty="id" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
+        newsId,
+      </if>
+      <if test="commentContent != null" >
+        commentContent,
+      </if>
+      <if test="owerId != null" >
+        owerId,
+      </if>
+      <if test="ower != null" >
+        ower,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="isCheck != null" >
+        isCheck,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
+        #{newsId,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null" >
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="owerId != null" >
+        #{owerId,jdbcType=INTEGER},
+      </if>
+      <if test="ower != null" >
+        #{ower,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=INTEGER},
+      </if>
+      <if test="isCheck != null" >
+        #{isCheck,jdbcType=TINYINT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rong.web.pojo.Comment" >
+    update comment
+    <set >
+      <if test="newsId != null" >
+        newsId = #{newsId,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null" >
+        commentContent = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="owerId != null" >
+        owerId = #{owerId,jdbcType=INTEGER},
+      </if>
+      <if test="ower != null" >
+        ower = #{ower,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="isCheck != null" >
+        isCheck = #{isCheck,jdbcType=TINYINT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rong.web.pojo.Comment" >
+    update comment
+    set newsId = #{newsId,jdbcType=INTEGER},
+      commentContent = #{commentContent,jdbcType=VARCHAR},
+      owerId = #{owerId,jdbcType=INTEGER},
+      ower = #{ower,jdbcType=VARCHAR},
+      created = #{created,jdbcType=INTEGER},
+      isCheck = #{isCheck,jdbcType=TINYINT},
+      deleted = #{deleted,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
