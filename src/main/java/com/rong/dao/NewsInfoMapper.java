@@ -1,25 +1,24 @@
 package com.rong.dao;
 
 import com.rong.web.pojo.NewsInfo;
-import com.rong.web.pojo.NewsInfoExample;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
+@Mapper
 public interface NewsInfoMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteById(@Param("id") Integer id);
 
-    int insert(NewsInfo record);
+    int insert(NewsInfo newsInfo);
 
-    int insertSelective(NewsInfo record);
+    List<NewsInfo> selectAllNews();
 
-    List<NewsInfo> selectByExampleWithBLOBs(NewsInfoExample example);
+    List<NewsInfo> selectUnchecked();
 
-    List<NewsInfo> selectByExample(NewsInfoExample example);
+    int updateByAuthor(NewsInfo newsInfo);
 
-    NewsInfo selectByPrimaryKey(Integer id);
+    int updateByIdByAdmin(@Param("id")Integer id);
 
-    int updateByPrimaryKeySelective(NewsInfo record);
 
-    int updateByPrimaryKeyWithBLOBs(NewsInfo record);
-
-    int updateByPrimaryKey(NewsInfo record);
 }

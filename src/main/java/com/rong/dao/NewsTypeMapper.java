@@ -1,21 +1,20 @@
 package com.rong.dao;
 
 import com.rong.web.pojo.NewsType;
-import com.rong.web.pojo.NewsTypeExample;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
+@Mapper
 public interface NewsTypeMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteById(@Param("id") Integer id);
 
-    int insert(NewsType record);
+    int insert(NewsType newsType);
 
-    int insertSelective(NewsType record);
+    NewsType selectByName(@Param("typeName") String typeName);
 
-    List<NewsType> selectByExample(NewsTypeExample example);
+    List<NewsType> selectAllNewsType();
 
-    NewsType selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(NewsType record);
-
-    int updateByPrimaryKey(NewsType record);
+    int updateById(NewsType newsType);
 }

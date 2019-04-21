@@ -1,21 +1,23 @@
 package com.rong.dao;
 
 import com.rong.web.pojo.User;
-import com.rong.web.pojo.UserExample;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
+@Mapper
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteById(@Param("id") Integer id);
 
-    int insert(User record);
+    int insert(User user);
 
-    int insertSelective(User record);
+    User selectByEmail(@Param("email") String email);
 
-    List<User> selectByExample(UserExample example);
+    List<User> selectAllUsers();
 
-    User selectByPrimaryKey(Integer id);
+    User selectById(@Param("id") Integer id);
 
-    int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+    int updateById(User user);
 }

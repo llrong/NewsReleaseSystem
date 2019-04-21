@@ -1,21 +1,21 @@
 package com.rong.dao;
 
 import com.rong.web.pojo.Comment;
-import com.rong.web.pojo.CommentExample;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
+@Mapper
 public interface CommentMapper {
-    int deleteByPrimaryKey(Integer id);
 
     int insert(Comment record);
 
-    int insertSelective(Comment record);
+    List<Comment> selectByOwerId(@Param("id") Integer id);
 
-    List<Comment> selectByExample(CommentExample example);
+    List<Comment> selectByNewsId(@Param("id") Integer id);
 
-    Comment selectByPrimaryKey(Integer id);
+    int updateById(@Param("id") Integer id);
 
-    int updateByPrimaryKeySelective(Comment record);
-
-    int updateByPrimaryKey(Comment record);
+    int deleteById(@Param("id") Integer id);
 }

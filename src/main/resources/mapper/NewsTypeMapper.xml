@@ -37,28 +37,19 @@
   <sql id="Base_Column_List" >
     id, typeName
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rong.web.pojo.NewsTypeExample" >
+  <select id="selectAllNewsType" resultMap="BaseResultMap" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
-    'false' as QUERYID,
     <include refid="Base_Column_List" />
     from newstype
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    order by id
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from newstype
-    where id = #{id,jdbcType=INTEGER}
+    where typeName = #{typeName,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteById" parameterType="java.lang.Integer"  >
     delete from newstype
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -66,29 +57,9 @@
     insert into newstype (typeName)
     values (#{typeName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.rong.web.pojo.NewsType" useGeneratedKeys="true" keyProperty="id" >
-    insert into newstype
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="typeName != null" >
-        typeName,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="typeName != null" >
-        #{typeName,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rong.web.pojo.NewsType" >
-    update newstype
-    <set >
-      <if test="typeName != null" >
-        typeName = #{typeName,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.rong.web.pojo.NewsType" >
+
+
+  <update id="updateById" parameterType="com.rong.web.pojo.NewsType"  >
     update newstype
     set typeName = #{typeName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

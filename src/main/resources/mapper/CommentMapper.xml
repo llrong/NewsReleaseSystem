@@ -44,31 +44,23 @@
   <sql id="Base_Column_List" >
     Id, newsId, commentContent, owerId, ower, created, isCheck, deleted, remark
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rong.web.pojo.CommentExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    from comment
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+
+  <select id="selectByOwerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from comment
-    where Id = #{id,jdbcType=INTEGER}
+    where owerId = #{owerId,jdbcType=INTEGER}
+    order by created desc
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from comment
-    where Id = #{id,jdbcType=INTEGER}
-  </delete>
+
+  <select id="selectByNewsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from comment
+    where newsId = #{newsId,jdbcType=INTEGER}
+    order by created
+  </select>
+
   <insert id="insert" parameterType="com.rong.web.pojo.Comment" useGeneratedKeys="true" keyProperty="id" >
     insert into comment (newsId, commentContent, owerId, 
       ower, created, isCheck, 
@@ -77,101 +69,19 @@
       #{ower,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, #{isCheck,jdbcType=TINYINT}, 
       #{deleted,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.rong.web.pojo.Comment" useGeneratedKeys="true" keyProperty="id" >
-    insert into comment
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="newsId != null" >
-        newsId,
-      </if>
-      <if test="commentContent != null" >
-        commentContent,
-      </if>
-      <if test="owerId != null" >
-        owerId,
-      </if>
-      <if test="ower != null" >
-        ower,
-      </if>
-      <if test="created != null" >
-        created,
-      </if>
-      <if test="isCheck != null" >
-        isCheck,
-      </if>
-      <if test="deleted != null" >
-        deleted,
-      </if>
-      <if test="remark != null" >
-        remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="newsId != null" >
-        #{newsId,jdbcType=INTEGER},
-      </if>
-      <if test="commentContent != null" >
-        #{commentContent,jdbcType=VARCHAR},
-      </if>
-      <if test="owerId != null" >
-        #{owerId,jdbcType=INTEGER},
-      </if>
-      <if test="ower != null" >
-        #{ower,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        #{created,jdbcType=INTEGER},
-      </if>
-      <if test="isCheck != null" >
-        #{isCheck,jdbcType=TINYINT},
-      </if>
-      <if test="deleted != null" >
-        #{deleted,jdbcType=TINYINT},
-      </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rong.web.pojo.Comment" >
+
+  <update id="updateById" parameterType="java.lang.Integer"  >
     update comment
-    <set >
-      <if test="newsId != null" >
-        newsId = #{newsId,jdbcType=INTEGER},
-      </if>
-      <if test="commentContent != null" >
-        commentContent = #{commentContent,jdbcType=VARCHAR},
-      </if>
-      <if test="owerId != null" >
-        owerId = #{owerId,jdbcType=INTEGER},
-      </if>
-      <if test="ower != null" >
-        ower = #{ower,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
-      </if>
-      <if test="isCheck != null" >
-        isCheck = #{isCheck,jdbcType=TINYINT},
-      </if>
-      <if test="deleted != null" >
-        deleted = #{deleted,jdbcType=TINYINT},
-      </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
+    set
+    isCheck = 1
     where Id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.rong.web.pojo.Comment" >
+
+  <update id="deleteById" parameterType="java.lang.Integer"  >
     update comment
-    set newsId = #{newsId,jdbcType=INTEGER},
-      commentContent = #{commentContent,jdbcType=VARCHAR},
-      owerId = #{owerId,jdbcType=INTEGER},
-      ower = #{ower,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      isCheck = #{isCheck,jdbcType=TINYINT},
-      deleted = #{deleted,jdbcType=TINYINT},
-      remark = #{remark,jdbcType=VARCHAR}
+    set
+      isCheck = 1,
+      deleted = 1,
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

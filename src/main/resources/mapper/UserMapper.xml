@@ -41,28 +41,30 @@
   <sql id="Base_Column_List" >
     id, userName, password, email, remark, jusis
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rong.web.pojo.UserExample" >
+
+  <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
-    'false' as QUERYID,
     <include refid="Base_Column_List" />
     from user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    where email = #{email,jdbcType=VARCHAR}
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+  <select id="selectAllUsers" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where ORDER by id
+  </select>
+
+
+  <delete id="deleteById" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -72,44 +74,8 @@
     values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{jusis,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.rong.web.pojo.User" useGeneratedKeys="true" keyProperty="id" >
-    insert into user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userName != null" >
-        userName,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="email != null" >
-        email,
-      </if>
-      <if test="remark != null" >
-        remark,
-      </if>
-      <if test="jusis != null" >
-        jusis,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="jusis != null" >
-        #{jusis,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rong.web.pojo.User" >
+
+  <update id="updateById" parameterType="com.rong.web.pojo.User" >
     update user
     <set >
       <if test="userName != null" >
@@ -121,22 +87,11 @@
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
       <if test="jusis != null" >
         jusis = #{jusis,jdbcType=INTEGER},
       </if>
+      remark = #{remark,jdbcType=VARCHAR}
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.rong.web.pojo.User" >
-    update user
-    set userName = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      jusis = #{jusis,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

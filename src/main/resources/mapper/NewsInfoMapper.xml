@@ -54,149 +54,62 @@
   <sql id="Blob_Column_List" >
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.rong.web.pojo.NewsInfoExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from newsinfo
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rong.web.pojo.NewsInfoExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'false' as QUERYID,
+  <select id="selectAllNews" resultMap="BaseResultMap" >
     <include refid="Base_Column_List" />
     from newsinfo
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    where deleted != 1 and isCheck = 1
+    order by hits desc created
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+
+  <select id="selectUnchecked" resultMap="BaseResultMap" >
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from newsinfo
-    where id = #{id,jdbcType=INTEGER}
+    where isCheck != 1
+    ORDER by created
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from newsinfo
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
+  <update id="deleteById" parameterType="java.lang.Integer" >
+    update newsinfo
+    <set >
+      <if test="deleted!= null" >
+        deleted = #{deleted,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=TINYINT}
+  </update>
   <insert id="insert" parameterType="com.rong.web.pojo.NewsInfo" useGeneratedKeys="true" keyProperty="id" >
     insert into newsinfo (title, author, digest, 
       typeId, isCheck, picture, 
       hits, remark, created, 
       updated, deleted, content
       )
+    <if test="title != null" >
+      title,
+    </if>
+    <if test="author != null" >
+      author,
+    </if>
+    <if test="typeId != null" >
+      typeId,
+    </if>
+    <if test="created != null" >
+      created,
+    </if>
+    <if test="content != null" >
+      content,
+    </if>
     values (#{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, 
       #{typeId,jdbcType=INTEGER}, #{isCheck,jdbcType=TINYINT}, #{picture,jdbcType=VARCHAR}, 
       #{hits,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, 
       #{updated,jdbcType=INTEGER}, #{deleted,jdbcType=TINYINT}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.rong.web.pojo.NewsInfo" useGeneratedKeys="true" keyProperty="id" >
-    insert into newsinfo
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="author != null" >
-        author,
-      </if>
-      <if test="digest != null" >
-        digest,
-      </if>
-      <if test="typeId != null" >
-        typeId,
-      </if>
-      <if test="isCheck != null" >
-        isCheck,
-      </if>
-      <if test="picture != null" >
-        picture,
-      </if>
-      <if test="hits != null" >
-        hits,
-      </if>
-      <if test="remark != null" >
-        remark,
-      </if>
-      <if test="created != null" >
-        created,
-      </if>
-      <if test="updated != null" >
-        updated,
-      </if>
-      <if test="deleted != null" >
-        deleted,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="author != null" >
-        #{author,jdbcType=VARCHAR},
-      </if>
-      <if test="digest != null" >
-        #{digest,jdbcType=VARCHAR},
-      </if>
-      <if test="typeId != null" >
-        #{typeId,jdbcType=INTEGER},
-      </if>
-      <if test="isCheck != null" >
-        #{isCheck,jdbcType=TINYINT},
-      </if>
-      <if test="picture != null" >
-        #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="hits != null" >
-        #{hits,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        #{created,jdbcType=INTEGER},
-      </if>
-      <if test="updated != null" >
-        #{updated,jdbcType=INTEGER},
-      </if>
-      <if test="deleted != null" >
-        #{deleted,jdbcType=TINYINT},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rong.web.pojo.NewsInfo" >
+
+  <update id="updateByAuthor" parameterType="com.rong.web.pojo.NewsInfo" >
     update newsinfo
     <set >
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="author != null" >
-        author = #{author,jdbcType=VARCHAR},
       </if>
       <if test="digest != null" >
         digest = #{digest,jdbcType=VARCHAR},
@@ -204,26 +117,11 @@
       <if test="typeId != null" >
         typeId = #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="isCheck != null" >
-        isCheck = #{isCheck,jdbcType=TINYINT},
-      </if>
       <if test="picture != null" >
         picture = #{picture,jdbcType=VARCHAR},
       </if>
-      <if test="hits != null" >
-        hits = #{hits,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
-      </if>
       <if test="updated != null" >
         updated = #{updated,jdbcType=INTEGER},
-      </if>
-      <if test="deleted != null" >
-        deleted = #{deleted,jdbcType=TINYINT},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
@@ -231,35 +129,14 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rong.web.pojo.NewsInfo" >
+
+  <update id="updateByIdByAdmin" parameterType="java.lang.Integer" >
     update newsinfo
-    set title = #{title,jdbcType=VARCHAR},
-      author = #{author,jdbcType=VARCHAR},
-      digest = #{digest,jdbcType=VARCHAR},
-      typeId = #{typeId,jdbcType=INTEGER},
-      isCheck = #{isCheck,jdbcType=TINYINT},
-      picture = #{picture,jdbcType=VARCHAR},
-      hits = #{hits,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      updated = #{updated,jdbcType=INTEGER},
-      deleted = #{deleted,jdbcType=TINYINT},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.rong.web.pojo.NewsInfo" >
-    update newsinfo
-    set title = #{title,jdbcType=VARCHAR},
-      author = #{author,jdbcType=VARCHAR},
-      digest = #{digest,jdbcType=VARCHAR},
-      typeId = #{typeId,jdbcType=INTEGER},
-      isCheck = #{isCheck,jdbcType=TINYINT},
-      picture = #{picture,jdbcType=VARCHAR},
-      hits = #{hits,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      updated = #{updated,jdbcType=INTEGER},
-      deleted = #{deleted,jdbcType=TINYINT}
-    where id = #{id,jdbcType=INTEGER}
+    <set >
+      <if test="isCheck!= null" >
+        isCheck = 0,
+      </if>
+    </set>
+    where id = #{id,jdbcType=TINYINT}
   </update>
 </mapper>
