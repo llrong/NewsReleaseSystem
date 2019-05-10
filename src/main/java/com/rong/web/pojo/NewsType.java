@@ -1,6 +1,8 @@
 package com.rong.web.pojo;
 
-public class NewsType {
+import java.io.Serializable;
+
+public class NewsType implements Serializable{
     private Integer id;
 
     private String typeName;

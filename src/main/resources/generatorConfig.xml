@@ -15,7 +15,7 @@
         </commentGenerator>
 
         <!--数据库链接地址账号密码-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/graduation" userId="root" password="root">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/graduation" userId="root" password="root">
         </jdbcConnection>
         <!--...-->
         <javaTypeResolver>
@@ -35,7 +35,7 @@
         <sqlMapGenerator targetPackage="mapper" targetProject="E:\IntelliJ IDEA\NewsReleaseSystem\src\main\resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
-        <!--生成mapper类存放位置-->
+        <!--生成dao类存放位置-->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.rong.dao" targetProject="E:\IntelliJ IDEA\NewsReleaseSystem\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

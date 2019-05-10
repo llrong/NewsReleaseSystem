@@ -1,14 +1,19 @@
-package com.rong;
+package com.rong.web.action;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+
+@Controller
 public class IndexController {
-    @RequestMapping("/helloworld")
-    public String HelloWorld(){
-        return "Hello World!";
+    @RequestMapping("/login")
+    public String index() {
+        return "login";
+    }
+    @RequestMapping("/register")
+    public String register() {
+        return "register";
     }
 }
