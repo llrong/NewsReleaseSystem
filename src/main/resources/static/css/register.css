@@ -49,13 +49,19 @@ form p > * {
     border: 0;
 
 }
+#old{
+    font-size: 12px;
+    color: darkgray;
+    position: relative;
+    top: 5px;
+}
 
 #login{
     font-size: 12px;
     color: white;
     text-decoration: none;
     position: relative;
-    float: right;
+    float: inherit;
     top: 5px;
 }
 #login{

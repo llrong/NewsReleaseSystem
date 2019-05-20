@@ -11,14 +11,14 @@
 <body>
 <div id="login_frame">
     <form  method="post" action="/first/register">
-        <h3>登 录</h3>
+        <h3>注册</h3>
         <input type="text" name="username" id="username" placeholder="请输入用户名"/></br>
         <input type="text" name="email" id="email" placeholder="请输入邮箱"/></br>
         <input type="password" name="password" id="password" placeholder="请输入密码"/>
         <input type="password" name="confirm" id="confirm" placeholder="确认密码"/>
         <div id="login_control">
             <button  type="submit"  onclick="return check(this.form);" id="submit" class="submit">注册</button></br>
-            <a id="login" href="login.html"  th:href="@{login.html}">登录</a>
+            <label id="old">已有账户？</label><a id="login" href="login.html"  th:href="@{login}">登录</a>
         </div>
     </form>
 

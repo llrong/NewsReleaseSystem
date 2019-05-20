@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>首页</title>
+    <title>新闻管理</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../static/css/index.css" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../static/css/menu.css" />
     <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
@@ -13,20 +13,20 @@
 <!--顶部信息区-->
 <header role="header">
     <div>
-        <h1>新闻发布系统首页</h1>
+        <h1>新闻管理</h1>
         <nav role="user">
             <ul>
                 <li>欢迎管理员:<strong>admin</strong></li>
-                <li><a href="addNews.html" th:href="@{addNews}">发布新闻</a></li>
+                <li><a href="login.html" th:href="@{logout}">发布新闻</a></li>
                 <li><a  href="news.html"  th:href="@{news}">新闻管理</a></li>
                 <li><a href="user.html" th:href="@{user}">用户管理</a></li>
                 <li><a href="menu.html" th:href="@{menu}">个人信息</a></li>
                 <li><a href="login.html" th:href="@{login}">登录</a>
                     &nbsp;或&nbsp;<a href="register.html" th:href="@{register}">注册</a></li>
                 <li><a href="login.html" th:href="@{logout}">登出</a></li>
-    </ul>
-    </nav>
-</div>
+            </ul>
+        </nav>
+    </div>
 </header>
 <div id="body">
     <div id="search">

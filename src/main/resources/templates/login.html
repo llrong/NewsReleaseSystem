@@ -2,7 +2,7 @@
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>登录页面</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" href="../static/css/login.css" />
     <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
@@ -18,7 +18,8 @@
         <div id="login_control">
             <!--<input  type="button" id="login" value="登录" onclick="check()" ></br>-->
             <button  type="submit"  onclick="return check(this.form);" id="submit" class="submit">登陆</button></br>
-            <a id="register" href="register.html"  th:href="@{register.html}">注册</a>
+            <label id="new">新用户？</label>
+            <a id="register" href="register.html"  th:href="@{/register}">注册</a>
         </div>
     </form>
 
