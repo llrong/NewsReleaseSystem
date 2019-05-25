@@ -23,21 +23,25 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping("/login")
-    public String Login(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public String Login(HttpServletRequest request, HttpServletResponse response,Model model) throws IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user = userService.selectByEmail(email);
-        response.setContentType("text/html;charset=gb2312");
+        response.setContentType("text/html;charset=utf-8");
+        response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        if(user == null){
+        Object object = request.getSession().getAttribute("user");
+        if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+            request.getSession().setAttribute("user", user);//用户名存入该用户的session 中
+            out.print("<script language=\"javascript\">alert('登录成功！');window.location.href='/index'</script>");
+            model.addAttribute("userName",user.getUserName());
+            return "/index";
+        } else if(user == null){
             out.print("<script language=\"javascript\">alert('您尚未注册，登录失败！');window.location.href='/login'</script>");
             return "/login";
-        }else if(user.getEmail().equals(email) && user.getPassword().equals(password)){
-            out.print("<script language=\"javascript\">alert('登录成功！');</script>");
-            return "index";
-        }else {
-            out.print("<script language=\"javascript\">alert('密码错误，登录失败！');</script>");
-            return "login";
+        } else {
+            out.print("<script language=\"javascript\">alert('账号密码错误！');window.location.href='/login'</script>");
+            return "/login";
         }
     }
 

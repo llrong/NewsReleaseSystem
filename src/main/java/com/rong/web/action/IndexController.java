@@ -4,7 +4,10 @@ import com.rong.web.pojo.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -21,37 +24,89 @@ public class IndexController {
     }
 
     @RequestMapping("/index")
-    public String index() {
+    public String index(HttpServletRequest request, Model model) {
+        User user = (User)request.getSession().getAttribute("user");
+        if(user == null){
+            model.addAttribute("userName","未登录状态");
+        }else {
+            if(user.getJusis() == 0){
+                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
+            }
+            else {
+                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+            }
+        }
         return "index";
     }
 
     @RequestMapping("/addNews")
-    public String addNews() {
-        return "addNews";
+    public String addNews(HttpServletRequest request, Model model) {
+        User user = (User)request.getSession().getAttribute("user");
+        if(user == null){
+            model.addAttribute("userName","未登录状态");
+        }else {
+            if(user.getJusis() == 0){
+                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
+            }
+            else {
+                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+            }
+        }return "addNews";
     }
 
     @RequestMapping("/menu")
-    public String menu() {
-        return "menu";
+    public String menu(HttpServletRequest request, Model model) {
+        User user = (User)request.getSession().getAttribute("user");
+        if(user == null){
+            model.addAttribute("userName","未登录状态");
+        }else {
+            if(user.getJusis() == 0){
+                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
+            }
+            else {
+                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+            }
+        }return "menu";
     }
 
     @RequestMapping("/user")
-    public String user() {
-        return "user";
+    public String user(HttpServletRequest request, Model model) {
+        User user = (User)request.getSession().getAttribute("user");
+        if(user == null){
+            model.addAttribute("userName","未登录状态");
+        }else {
+            if(user.getJusis() == 0){
+                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
+            }
+            else {
+                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+            }
+        }return "user";
     }
 
     @RequestMapping("/news")
-    public String news() {
-        return "news";
+    public String news(HttpServletRequest request, Model model) {
+        User user = (User)request.getSession().getAttribute("user");
+        if(user == null){
+            model.addAttribute("userName","未登录状态");
+        }else {
+            if(user.getJusis() == 0){
+                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
+            }
+            else {
+                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+            }
+        }return "news";
     }
 
 
     @RequestMapping("/logout")
-    public String logout(HttpServletResponse response) throws IOException{
-        response.setContentType("text/html;charset=gb2312");
-        PrintWriter out = response.getWriter();
-        out.print("<script language=\"javascript\">confirm('确认退出登录？');window.location.href='/register'</script>");
-        return "login";
+    public String logout(HttpServletRequest request , HttpServletResponse response) throws IOException{
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user")!=null ) {
+        session.removeAttribute("user");
+        }
+        return "redirect:/index";
     }
 
     @RequestMapping("/hi")
