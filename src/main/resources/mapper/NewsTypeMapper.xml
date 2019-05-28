@@ -53,7 +53,7 @@
     delete from newstype
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.rong.web.pojo.NewsType" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="java.lang.String"  >
     insert into newstype (typeName)
     values (#{typeName,jdbcType=VARCHAR})
   </insert>

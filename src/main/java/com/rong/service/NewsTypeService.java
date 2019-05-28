@@ -20,24 +20,24 @@ public class NewsTypeService {
         return  newsTypeMapper.deleteById(id);
     }
 
-    public int insertNewsType(NewsType newsType){
-        return newsTypeMapper.insert(newsType);
+    public int insertNewsType(String typeName){
+        return newsTypeMapper.insert(typeName);
     }
 
     public NewsType selectByName(String typeName){
         return newsTypeMapper.selectByName(typeName);
     }
 
-    public List<Map<String,Object>> selectAllnewsTypes(){
+    public List<NewsType> selectAllnewsTypes(){
         List<NewsType>  list = newsTypeMapper.selectAllNewsType();
-        List<Map<String, Object>> result = new ArrayList<>(list.size());
-        for (NewsType newsType : list) {
-            Map<String, Object> map = new HashMap<>(10);
-            map.put("id", newsType.getId());
-            map.put("typeName", newsType.getTypeName());
-            result.add(map);
-        }
-        return result;
+//        List<Map<String, Object>> result = new ArrayList<>(list.size());
+//        for (NewsType newsType : list) {
+//            Map<String, Object> map = new HashMap<>(10);
+//            map.put("id", newsType.getId());
+//            map.put("typeName", newsType.getTypeName());
+//            result.add(map);
+//        }
+         return list;
     }
 
     public int updateById(NewsType newsType){

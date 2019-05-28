@@ -71,6 +71,3 @@ public class LoginController {
     }
 
 }
-/*
-string baseURL  = request.
- */

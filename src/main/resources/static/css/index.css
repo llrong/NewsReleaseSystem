@@ -142,4 +142,20 @@ div {
     height: 27px;
 }
 
+#recommend_right_1 {
+    position: relative; /*相対定位*/
+}
+
+#recommend_right_1 p {
+    position: absolute;/*絶対定位*/
+    color: white;/*文字设为白色*/
+    top: 0;
+    left: 0;
+}
+
+#recommend_right_1 img {
+    width: 100%;
+}
+
+
 

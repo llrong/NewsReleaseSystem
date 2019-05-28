@@ -6,7 +6,7 @@
     <title>首页</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../static/css/index.css" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../static/css/menu.css" />
-    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <!--出现Resource interpreted as Stylesheet but transferred with MIME type text/html问题时将页面删除重新贴进来就行-->
 </head>
 
 <body>
@@ -18,8 +18,8 @@
             <ul>
                 <li ><strong id="name" th:text="${userName}"></strong></li>
                 <li><a href="addNews.html" th:href="@{addNews}">发布新闻</a></li>
-                <li id="newsmanger"><a  href="news.html"  th:href="@{news}">新闻管理</a></li>
-                <li id="usermanger"><a href="user.html" th:href="@{user}">用户管理</a></li>
+                <li id="newsmanger"><a href="newsManger.html" th:href="@{newsManger}">新闻管理</a></li>
+                <li id="usermanger"><a href="userManger.html" th:href="@{userManger}">用户管理</a></li>
                 <li><a href="menu.html" th:href="@{menu}">个人信息</a></li>
                 <li id="login"><a href="login.html" th:href="@{login}">登录</a>
                     &nbsp;或&nbsp;<a href="register.html" th:href="@{register}">注册</a></li>
@@ -50,7 +50,6 @@
         <a href="#">互联网</a>
         <a href="#">体育</a>
         <a href="#">娱乐</a>
-        <a href="#">女人</a>
         <a href="#">科技</a>
         <a href="#">房产</a>
         <a href="#">汽车</a>
@@ -81,13 +80,15 @@
             </div>
         </div>
         <div id="recommend_right">
-            <div id="recommend_right_1"><img src="../static/picture/login.png" th:src="@{/picture/login.png}"  width="560" height="400"/>
+            <div id="recommend_right_1" >
+                <img src="../static/picture/quan.jpg" th:src="@{/picture/quan.jpg}"  width="560" height="400"/>
+                <p>中国拳手徐灿TKO日本拳手 成功卫冕世界拳王金腰带</p>
             </div>
             <div id="recommend_right_2">
                 <div class="recommend_right_2_bt">滚动新闻</div>
                 <div class="recommend_right_2_m">
                     <!--<marquee scrollamount="2">|暴雨袭击藤县局部受灾|挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立 |岑溪工商开展儿童用品市场专项整治见成效|</marquee>-->
-                    <marquee scrollamount="2"><a href="login.html">邓肯扩扩扩</a>&nbsp;|&nbsp;<a href="register.html">gfgfg</a></marquee>
+                    <marquee scrollamount="2"><a href="login.html">暴雨袭击藤县局部受灾</a>&nbsp;|&nbsp;<a href="register.html">挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立</a></marquee>
                 </div>
             </div>
         </div>

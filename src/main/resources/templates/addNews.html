@@ -2,10 +2,11 @@
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>发表新闻</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../static/css/index.css" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../static/css/menu.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../static/css/index.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../static/css/menu.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNews.css}" href="../static/css/addNews.css"/>
     <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 </head>
 
@@ -16,10 +17,10 @@
         <h1>发表新闻</h1>
         <nav role="user">
             <ul>
-                <li ><strong id="name" th:text="${userName}"></strong></li>
+                <li><strong id="name" th:text="${userName}"></strong></li>
                 <li><a href="index.html" th:href="@{index}">返回首页</a></li>
-                <li id="newsmanger"><a href="news.html"  th:href="@{news}">新闻管理</a></li>
-                <li id="usermanger"><a href="user.html" th:href="@{user}">用户管理</a></li>
+                <li id="newsmanger"><a href="newsManger.html" th:href="@{newsManger}">新闻管理</a></li>
+                <li id="usermanger"><a href="userManger.html" th:href="@{userManger}">用户管理</a></li>
                 <li><a href="menu.html" th:href="@{menu}">个人信息</a></li>
                 <li id="login"><a href="login.html" th:href="@{login}">登录</a>
                     &nbsp;或&nbsp;<a href="register.html" th:href="@{register}">注册</a></li>
@@ -28,24 +29,64 @@
         </nav>
     </div>
 </header>
+ 
+<div class="mes-send" >
+    <form method="post" action="/news/addNews" name="myform" >
+        <div class="form-group">
+            <label >标题：</label>
+            <input type="text" id="title" name="title" placeholder="新闻标题" size="50">
+        </div>
+        <div class="form-group">
+            <label >摘要：</label>
+            <input type="text" id="digest" name="digest" placeholder="新闻摘要,可以为空">
+        </div>
+        <div class="form-group">
+            <label >新闻类别：</label>
+            <select name="type" class="select2">
+                   <option value="Email">Email</option>
+                   <option value="Phone">Phone</option>
+                   <option value="QQ">QQ</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="user_mes">内容：</label>
+            <textarea id="user_mes" name="user_mes" rows="25" cols="70"></textarea>
+        </div>
+        <input type="submit" value="提 交" onclick="return foo(this.form);" >  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="reset" value="重 置"  >
+    </form>
+</div>
 </body>
 </html>
 <script type="text/javascript">
-    var user=document.getElementById("name").innerHTML;
-    var u = user.substring(4,5);
-//    console.info(user);
-//    console.info(u);
-    if(u == "态" ){
-        document.getElementById("newsmanger").style.display='none';
-        document.getElementById("usermanger").style.display='none';
-        document.getElementById("logout").style.display='none';
+    var user = document.getElementById("name").innerHTML;
+    var u = user.substring(4, 5);
+    //    console.info(user);
+    //    console.info(u);
+    if (u == "态") {
+        document.getElementById("newsmanger").style.display = 'none';
+        document.getElementById("usermanger").style.display = 'none';
+        document.getElementById("logout").style.display = 'none';
     }
-    if(u == "用" ){
-        document.getElementById("newsmanger").style.display='none';
-        document.getElementById("usermanger").style.display='none';
-        document.getElementById("login").style.display='none';
+    if (u == "用") {
+        document.getElementById("newsmanger").style.display = 'none';
+        document.getElementById("usermanger").style.display = 'none';
+        document.getElementById("login").style.display = 'none';
     }
-    if(u == "管" ){
-        document.getElementById("login").style.display='none';
+    if (u == "管") {
+        document.getElementById("login").style.display = 'none';
+    }
+    function foo(form) {
+        if (myform.title.value == "") {
+            alert('请填写你的新闻标题');
+            myform.title.focus();
+            return false;
+        }
+        if (myform.content.value == "") {
+            alert('新闻内容不能为空哦');
+            myform.content.focus();
+            return false;
+        }
     }
 </script>

@@ -14,10 +14,12 @@ import java.io.PrintWriter;
 
 @Controller
 public class IndexController {
+
     @RequestMapping("/login")
     public String login() {
         return "login";
     }
+
     @RequestMapping("/register")
     public String register() {
         return "register";
@@ -69,7 +71,7 @@ public class IndexController {
         }return "menu";
     }
 
-    @RequestMapping("/user")
+    @RequestMapping("/userManger")
     public String user(HttpServletRequest request, Model model) {
         User user = (User)request.getSession().getAttribute("user");
         if(user == null){
@@ -81,10 +83,10 @@ public class IndexController {
             else {
                 model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
             }
-        }return "user";
+        }return "userManger";
     }
 
-    @RequestMapping("/news")
+    @RequestMapping("/newsManger")
     public String news(HttpServletRequest request, Model model) {
         User user = (User)request.getSession().getAttribute("user");
         if(user == null){
@@ -96,7 +98,7 @@ public class IndexController {
             else {
                 model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
             }
-        }return "news";
+        }return "newsManger";
     }
 
 

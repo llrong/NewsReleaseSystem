@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNews.css}" href="../static/css/addNews.css"/>
+</head>
+<body>
+<!--<div class="mes-send">-->
+    <!--<thead class="table table-bordered modules-table">-->
+    <!--<thead>-->
+    <!--<tr>-->
+        <!--<th>新闻类型id</th>-->
+        <!--<th>新闻类型名称</th>-->
+        <!--<th id="op">操作</th>-->
+    <!--</tr>-->
+    <!--<tbody>-->
+    <!--&lt;!&ndash;<tr th:each="borrowingBooks : ${borrowingBooksList}">&ndash;&gt;-->
+    <!--&lt;!&ndash;<td><a href="#" th:text="${borrowingBooks.getBook().getBookName()}">Title ...</a></td>&ndash;&gt;-->
+    <!--&lt;!&ndash;<td th:text="${borrowingBooks.getDate()}">1</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;<br>&ndash;&gt;-->
+    <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+    <!--</tbody>-->
+    <!--</thead>-->
+    <!--</table>-->
+<!--</div>-->
+
+
+<table border="1" style="width:300px;">
+    <tr>
+        <th>新闻类型id</th>
+        <th>新闻类型名称</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="newstype : ${list}">
+        <td th:text="${newstype.getId()}"></td>
+        <td th:text="${newstype.getTypeName()}"></td>
+        <td>
+            <button type="button"  class="delete"  >删除</button>
+            <button class="update" id="${newstype.getId()}" type="button" onclick="lick(this, this.id)">修改</button>
+
+        </td>
+
+    </tr>
+</table>
+</body>
+</html>
+<script>
+    function updated(obj, id){
+        var td_content = $(obj).parents("tr").children("td");  //获取当前行中的所有td值
+        var content = td_content.eq(0).text(); //获取当前行第一个td的值
+        var content2 = td_content.eq(1).text(); //获取当前行第二个td的值
+        var x = prompt ("输入新修改新闻类型名称");/*第一个变量为提示语，第二个变量为默认初始值*/
+        alert(x);
+    }
+
+
+
+</script>
+

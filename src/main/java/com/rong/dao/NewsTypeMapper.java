@@ -10,11 +10,13 @@ import java.util.List;
 public interface NewsTypeMapper {
     int deleteById(@Param("id") Integer id);
 
-    int insert(NewsType newsType);
+    int insert(@Param("typeName") String typeName);
 
     NewsType selectByName(@Param("typeName") String typeName);
 
     List<NewsType> selectAllNewsType();
 
     int updateById(NewsType newsType);
+
+
 }
