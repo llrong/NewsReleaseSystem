@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>新闻管理</title>
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../../static/css/index.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../../static/css/menu.css" />
+    <script src="../../static/js/judge.js" th:src="@{/js/judge.js}"></script>
+</head>
+
+<body onload="judge()">
+顶部信息区
+<header role="header">
+    <div>
+        <h1>新闻管理</h1>
+        <nav role="user">
+            <ul>
+                <span id="num" style="display: none"  th:text="${num}"></span>
+                <li ><strong id="name" th:text="${userName}"></strong></li>
+                <li><a href="../index.html" th:href="@{index}">返回首页</a></li>
+                <li><a href="../news/addNews.html" th:href="@{addNews.html}">发布新闻</a></li>
+                <li id="usermanger"><a href="../user/userManger.html" th:href="@{userManger}">用户管理</a></li>
+                <li><a href="../user/menu.html" th:href="@{menu}">个人信息</a></li>
+                <li id="login"><a href="../user/login.html" th:href="@{login}">登录</a>
+                    &nbsp;或&nbsp;<a href="../user/register.html" th:href="@{register}">注册</a></li>
+                <li id="logout"><a href="../user/login.html" onclick="out()">登出</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!--圣杯二列布局-->
+<main role="main">
+    <!--主体内联框架区-->
+    <article role="content">
+        <iframe  src="queryNews.html" name="main"></iframe>
+
+    </article>
+    <!--左侧导航区-->
+    <aside>
+        <nav role="option">
+            <ul>
+                <li>导航列表</li>
+                <li><a href="queryNews.html" class="active" target="main">新闻审核</a></li>
+                <li><a href="../newsType/addNewsType.html" th:href="@{addNewsType}" target="main" >添加新闻类型</a></li>
+                <li><a href="../newsType/queryNewsType.html" th:href="@{/newstype/queryNewsType}" target="main">新闻类型管理</a></li>
+                <li><a href="category.html" target="main">评论管理</a></li>
+            </ul>
+        </nav>
+    </aside>
+</main>
+</body>
+</html>
+<script type="text/javascript">
+    var user=document.getElementById("name").innerHTML;
+    var u = user.substring(4,5);
+    //    console.info(user);
+    //    console.info(u);
+    if(u == "态" ){
+        document.getElementById("newsmanger").style.display='none';
+        document.getElementById("usermanger").style.display='none';
+        document.getElementById("logout").style.display='none';
+    }
+    if(u == "用" ){
+        document.getElementById("newsmanger").style.display='none';
+        document.getElementById("usermanger").style.display='none';
+        document.getElementById("login").style.display='none';
+    }
+    if(u == "管" ){
+        document.getElementById("login").style.display='none';
+    }
+</script>

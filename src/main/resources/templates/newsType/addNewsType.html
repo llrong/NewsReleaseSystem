@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>新建</title>
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNews.css}" href="../../static/css/addNews.css"/>
+    <script type="text/javascript" src="../../static/js/addNewsType.js" th:src="@{/js/addNewsType.js}"></script>
+</head>
+<body>
+<div class="mes-send" >
+    <h3>添 加 新 闻 类 型</h3>
+        <div class="form-group">
+            <label >新建新闻类型:</label>
+            <input type="text" id="newstype"  placeholder="输入要添加的新闻类型" size="50">
+        </div>
+        <div>
+            <button onclick="tijiao()" id="tijiao">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button  type="reset"  >重置</button>
+        </div>
+
+</div>
+
+
+
+</body>
+</html>

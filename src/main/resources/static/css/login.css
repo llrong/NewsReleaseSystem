@@ -19,12 +19,6 @@ body {
     border-radius: 10px;
     text-align: center;
 }
-
-form p > * {
-    display: inline-block;
-    vertical-align: middle;
-}
-
 #email,#password{
     border:1px solid #fff;
     width:230px;

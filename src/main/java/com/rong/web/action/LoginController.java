@@ -5,13 +5,12 @@ import com.rong.web.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -22,52 +21,65 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
-    public String Login(HttpServletRequest request, HttpServletResponse response,Model model) throws IOException {
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ResponseBody
+    public int login(HttpServletRequest request){
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        //查询数据库中已经存在的用户名密码
         User user = userService.selectByEmail(email);
-        response.setContentType("text/html;charset=utf-8");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        Object object = request.getSession().getAttribute("user");
-        if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-            request.getSession().setAttribute("user", user);//用户名存入该用户的session 中
-            out.print("<script language=\"javascript\">alert('登录成功！');window.location.href='/index'</script>");
-            model.addAttribute("userName",user.getUserName());
-            return "/index";
-        } else if(user == null){
-            out.print("<script language=\"javascript\">alert('您尚未注册，登录失败！');window.location.href='/login'</script>");
-            return "/login";
-        } else {
-            out.print("<script language=\"javascript\">alert('账号密码错误！');window.location.href='/login'</script>");
-            return "/login";
+        int result;
+        if(email==""||password==""){
+            result = 0;   //返回值为0前端提示用户名或者密码空
+        }else if (user == null){
+            result = 2;    //用户名不存在
+        } else if(password.equals(user.getPassword()) && email.equals(user.getEmail())){   //数据库中查询到的密码跟前端获取到的对比
+            request.getSession().setAttribute("user",user);
+            result = 1;     //相等的话返回值1  登录成功
+        }else{
+            result = 3;  //用户名或者密码错误
         }
+        return result;
+
     }
 
-    @RequestMapping("/register")
-    public String registerInfo(HttpServletRequest request, HttpServletResponse response)throws IOException{
-        String username = request.getParameter("username");
+
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @ResponseBody
+    public int register(HttpServletRequest request){
+        String userName = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        response.setContentType("text/html;charset=gb2312");
-        PrintWriter out = response.getWriter();
+        String confirm = request.getParameter("confirm");
+        //查询数据库中已经存在的用户名密码
+        User user = userService.selectByEmail(email);
+        int result;
+        if(user != null ) {
+            result = 0;//前端返回说明此邮箱已被注册
+        }else if(email==""||password=="" || userName=="" ||confirm==""){
+            result = 2;   //有选项填写为空
+        }else if (password.length() < 6){
+            result = 3;    //密码长度小于6
+        } else if(!password.equals(confirm)){   //数据库中查询到的密码跟前端获取到的对比
+            result = 4;     //两次密码长度不一致
+        }else{
+            result = 1;  //成功注册
+        }
+        return result;
+    }
 
-        User judge = userService.selectByEmail(email);
-        if(judge!=null){
-            out.print("<script language=\"javascript\">alert('该邮箱已注册！');window.location.href='/register'</script>");
-            return "/register";
+
+
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    @ResponseBody
+    public int logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user")!=null ) {
+            session.removeAttribute("user");
         }
-        User user = new User();
-        user.setEmail(email);
-        user.setUserName(username);
-        user.setPassword(password);
-        int res = userService.insertUser(user);
-        if(res!=0){
-            out.print("<script language=\"javascript\">alert('注册成功,请登录！');</script>");
-            return "index";
-        }
-        return "register";
+        int result = 1;
+        return result;
+
     }
 
 }

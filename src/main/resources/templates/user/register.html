@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>注册页面</title>
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}" href="../../static/css/register.css" />
+    <script type="text/javascript" src="../../static/js/login.js" th:src="@{/js/login.js}"></script>
+</head>
+<body>
+<div id="login_frame">
+    <h3>注册</h3>
+    <input type="text"  placeholder="请输入用户名"id="username"/></br>
+    <input type="text" placeholder="请输入邮箱" id="email">
+    <input type="password" placeholder="请输入密码" id="password">
+    <input type="password" placeholder="确认密码" id="confirm" />
+    <div id="login_control">
+        <button onclick="reg()" id="register">注册</button><br>
+        <label id="old">已有账户？</label><a id="login" href="login.html" th:href="@{login}">登录</a>
+    </div>
+</div>
+
+
+
+</body>
+</html>

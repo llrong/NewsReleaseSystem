@@ -3,27 +3,28 @@ create database graduation;
 
 
 use  graduation;
+use graduation;
 drop table if exists User;
 create table User(
-	userId int(11)  PRIMARY KEY auto_increment,
+	id int(11)  PRIMARY KEY auto_increment,
 	userName varchar(20) not null comment'用户名称',
 	password varchar(20) not null ,
 	email varchar(20) not null unique  comment'邮箱',
    remark varchar(100) comment'备注',
 	jusis  int(11) not null default'0' comment'用户所属权限分类,0表示普通用户，1表示管理员'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 comment'用户表'、
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 comment'用户表'
 
 
-drop table if exists News_Type;
-create table News_Type(
-	type_id int(11)  PRIMARY KEY auto_increment,
-	tname varchar(20) not null unique COMMENT '新闻类型名称',
+drop table if exists NewsType;
+create table NewsType(
+	id int(11)  PRIMARY KEY auto_increment,
+	typeName varchar(20) not null unique COMMENT '新闻类型名称'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 comment'新闻类型'
 
 
-drop table if exists News_info;
-create table News_info(
-	newsId int(11)  PRIMARY KEY auto_increment,
+drop table if exists NewsInfo;
+create table NewsInfo(
+	id int(11)  PRIMARY KEY auto_increment,
 	title varchar(100) not null  comment'新闻标题',
 	content text not null comment'新闻内容',
 	author varchar(20) not null,
@@ -42,7 +43,7 @@ create table News_info(
 
 drop table if exists Comment;
 create table Comment(
-	commentId int(11)  PRIMARY KEY auto_increment,
+	id int(11)  PRIMARY KEY auto_increment,
 	newsId int(11) not null comment'此条评论所属新闻id',
 	commentContent varchar(200) not null comment'评论内容',
 	owerId int(11) not null comment'评论人id',
@@ -55,3 +56,6 @@ create table Comment(
 	key index_owerId(owerid)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 comment'评论信息表';
 
+show variables like '%time_zone%'
+set time_zone = '+8:00';
+flush privileges;//设置mysql时区

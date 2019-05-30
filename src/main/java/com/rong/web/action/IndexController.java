@@ -1,28 +1,37 @@
 package com.rong.web.action;
 
+import com.rong.service.NewsTypeService;
+import com.rong.web.pojo.NewsType;
 import com.rong.web.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 
 @Controller
 public class IndexController {
 
+    @Autowired
+    private NewsTypeService newsTypeService;
+
     @RequestMapping("/login")
     public String login() {
-        return "login";
+        return "user/login";
     }
 
     @RequestMapping("/register")
     public String register() {
-        return "register";
+        return "user/register";
     }
 
     @RequestMapping("/index")
@@ -31,6 +40,7 @@ public class IndexController {
         if(user == null){
             model.addAttribute("userName","未登录状态");
         }else {
+            model.addAttribute("num",user.getJusis());
             if(user.getJusis() == 0){
                 model.addAttribute("userName","欢迎您：用户"+user.getUserName());
             }
@@ -44,16 +54,19 @@ public class IndexController {
     @RequestMapping("/addNews")
     public String addNews(HttpServletRequest request, Model model) {
         User user = (User)request.getSession().getAttribute("user");
+        List<NewsType> list = newsTypeService.selectAllnewsTypes();
+        model.addAttribute("list",list);
         if(user == null){
             model.addAttribute("userName","未登录状态");
         }else {
+            model.addAttribute("num",user.getJusis());
             if(user.getJusis() == 0){
                 model.addAttribute("userName","欢迎您：用户"+user.getUserName());
             }
             else {
                 model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
             }
-        }return "addNews";
+        }return "news/addNews";
     }
 
     @RequestMapping("/menu")
@@ -62,13 +75,14 @@ public class IndexController {
         if(user == null){
             model.addAttribute("userName","未登录状态");
         }else {
+            model.addAttribute("num",user.getJusis());
             if(user.getJusis() == 0){
                 model.addAttribute("userName","欢迎您：用户"+user.getUserName());
             }
             else {
                 model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
             }
-        }return "menu";
+        }return "user/menu";
     }
 
     @RequestMapping("/userManger")
@@ -77,13 +91,14 @@ public class IndexController {
         if(user == null){
             model.addAttribute("userName","未登录状态");
         }else {
+            model.addAttribute("num",user.getJusis());
             if(user.getJusis() == 0){
                 model.addAttribute("userName","欢迎您：用户"+user.getUserName());
             }
             else {
                 model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
             }
-        }return "userManger";
+        }return "user/userManger";
     }
 
     @RequestMapping("/newsManger")
@@ -92,24 +107,27 @@ public class IndexController {
         if(user == null){
             model.addAttribute("userName","未登录状态");
         }else {
+            model.addAttribute("num",user.getJusis());
             if(user.getJusis() == 0){
                 model.addAttribute("userName","欢迎您：用户"+user.getUserName());
             }
             else {
                 model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
             }
-        }return "newsManger";
+        }return "news/newsManger";
     }
 
 
-    @RequestMapping("/logout")
-    public String logout(HttpServletRequest request , HttpServletResponse response) throws IOException{
-        HttpSession session = request.getSession();
-        if(session.getAttribute("user")!=null ) {
-        session.removeAttribute("user");
-        }
-        return "redirect:/index";
-    }
+//    @RequestMapping("/logout")
+//    public void logout(HttpServletRequest request , HttpServletResponse response) throws IOException{
+////        HttpSession session = request.getSession();
+////        if(session.getAttribute("user")!=null ) {
+////        session.removeAttribute("user");
+////        }
+////        return "redirect:/index";
+//    }
+
+
 
     @RequestMapping("/hi")
     public String index(Model model){
@@ -120,6 +138,11 @@ public class IndexController {
             return "forget";
     }
 
+    @RequestMapping("/addNewsType")
+    public String addNewsType() {
+        //向后端发送数据的页面需要写一个请求解决前端的get问题，否则会出现405错误
+        return "newsType/addNewsType";
+    }
 
 
 }

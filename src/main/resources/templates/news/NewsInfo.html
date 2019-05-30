@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>用户管理</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../../static/css/index.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../../static/css/menu.css" />
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+</head>
+<body>
+<header role="header">
+    <div>
+        <h1>新闻内容</h1>
+        <nav role="user">
+            <ul>
+                <li ><strong id="name" th:text="${userName}"></strong></li>
+                <li><a href="../index.html" th:href="@{index}">返回首页</a></li>
+                <li id="newsmanger"><a href="newsManger.html" th:href="@{}">新闻管理</a></li>
+                <li id="usermanger"><a href="../user/userManger.html" th:href="@{userManger}">用户管理</a></li>
+                <li><a href="../user/menu.html" th:href="@{menu}">个人信息</a></li>
+                <li id="login"><a href="../user/login.html" th:href="@{login}">登录</a>
+                    &nbsp;或&nbsp;<a href="../user/register.html" th:href="@{register}">注册</a></li>
+                <li id="logout"><a href="../user/login.html" th:href="@{logout}">登出</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div align="center">
+    <h1>盘点2016年三大运营商大事记</h1>
+    <p><b>科技杂谈</b>|01月01日 12:17</font></p>
+    <br/>
+    <br/>
+
+
+    <!--图片-->
+    <p align='center'><img src=""></p>
+
+    <pre>
+        关于简易文章发布系统——后台管理系统大致已经制作完毕，但是从安全方面来看，程序质量不高，只适合初学者进行学习开发，掌握php的开发流程和开发技巧，为以后引擎模板的学习打下基础。
+               针对 后台管理系统，制作 简易文章发布系统的前台界面，用于用户的查看。
+               使用同样的数据库和数据表，基于原来的目录结构进行设计：】吗，
+    </pre>
+    <p>点击量：</font><font color='red' >141</font></p>
+</div>
+</body>
+</html>
+

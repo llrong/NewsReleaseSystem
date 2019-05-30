@@ -1,6 +1,7 @@
 package com.rong.web.pojo;
 
 import java.io.Serializable;
+import java.security.PrivateKey;
 
 public class NewsInfo implements Serializable{
     private Integer id;

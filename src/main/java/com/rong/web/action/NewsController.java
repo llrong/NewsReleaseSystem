@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,68 +31,37 @@ public class NewsController
 
 
 
-    @RequestMapping("/addNews")
-    public String addNews(HttpServletRequest request, HttpServletResponse response)throws IOException {
+    @RequestMapping(value = "/addNews", method = RequestMethod.POST)
+    @ResponseBody
+    public int  addNews(HttpServletRequest request) {
         String title = request.getParameter("title");
         String digest = request.getParameter("digest");
         String type = request.getParameter("type");
         String content = request.getParameter("content");
-
-        response.setContentType("text/html;charset=gb2312");
-        PrintWriter out = response.getWriter();
-
+        int result;
         NewsInfo newsInfo = new NewsInfo();
         User user = (User)request.getSession().getAttribute("user");
-        NewsType newsType= newsTypeService.selectByName(type);
-        if(newsType != null){
-            newsInfo.setTypeId(newsType.getId());
-            newsInfo.setAuthor(user.getUserName());
-            newsInfo.setTitle(title);
-            newsInfo.setDigest(digest);
-            newsInfo.setContent(content);
-            newsInfo.setCreated(DateTimeUtils.getCurrentTime());
-        }else {
-            out.print("<script language=\"javascript\">alert('新闻类型错误！');</script>");
-            return "addNews";
-        }
-
-        int num = newsInfoService.insertNews(newsInfo);
-
-        if(num !=0){
-            out.print("<script language=\"javascript\">alert('新闻添加成功，请等待审核！');</script>");
-            return "index";
+        if(user == null ){
+            result = 0;    //尚未登录
         }else{
-            out.print("<script language=\"javascript\">alert('新闻添加失败，请重新添加！');</script>");
-            return "addNews";
-        }
-    }
-
-    @RequestMapping("/addNewsType")
-    public String addNewsType(HttpServletRequest request, HttpServletResponse response)throws IOException {
-        String typeName = request.getParameter("newsType");
-        response.setContentType("text/html;charset=gb2312");
-        PrintWriter out = response.getWriter();
-        if (typeName != null) {
-            NewsType newsType= newsTypeService.selectByName(typeName);
+            NewsType newsType= newsTypeService.selectByName(type);
             if(newsType != null){
-                out.print("<script language=\"javascript\">alert('此新闻类型已经存在，请重新添加！');</script>");
-                return "addNewsType";
-            }else {
-                newsTypeService.insertNewsType(typeName);
-                out.print("<script language=\"javascript\">alert('添加成功！');</script>");
-                return "newsManger";
+                newsInfo.setTypeId(newsType.getId());
+                newsInfo.setAuthor(user.getUserName());
+                newsInfo.setTitle(title);
+                newsInfo.setDigest(digest);
+                newsInfo.setContent(content);
+                newsInfo.setCreated(DateTimeUtils.getCurrentTime());
+                newsInfo.setHits(0);
+                newsInfoService.insertNews(newsInfo);
+                result = 1;  //成功
+            }else{
+                result = 2; //新闻类型不存在
             }
-        }else {
-            out.print("<script language=\"javascript\">alert('新闻类型为空，请重新添加！');</script>");
-            return "addNewsType";
         }
+       return  result;
 
     }
 
-    @RequestMapping("/queryNewsType")
-    public String findUserAll(Model model) {
-        List<NewsType> list = newsTypeService.selectAllnewsTypes();
-        model.addAttribute("list", list);
-        return "queryNewsType";
-    }
+
 }

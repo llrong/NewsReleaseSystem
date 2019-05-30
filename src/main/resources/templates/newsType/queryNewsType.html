@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻类型管理</title>
+    <script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" src="../static/js/querynewstype.js" th:src="@{/js/querynewstype.js}"></script>
+
+    <style type="text/css">
+        #upform
+        {
+            display:none;
+            border:1em solid #e7e7e7;
+            height:30%;
+            width:40%;
+            position:absolute;/*让节点脱离文档流,我的理解就是,从页面上浮出来,不再按照文档其它内容布局*/
+            /*top:24%;!*节点脱离了文档流,如果设置位置需要用top和left,right,bottom定位*!*/
+            left:40%;
+            z-index:2;/*个人理解为层级关系,由于这个节点要在顶部显示,所以这个值比其余节点的都大*/
+            background: white;
+        }
+        #over
+        {
+            width: 100%;
+            height: 100%;
+            opacity:0.8;/*设置背景色透明度,1为完全不透明,IE需要使用filter:alpha(opacity=80);*/
+            filter:alpha(opacity=80);
+            display: none;
+            position:absolute;
+            top:0;
+            left:0;
+            z-index:1;
+            background: silver;
+        }
+    </style>
+</head>
+<body>
+
+<table border="3"   >
+    <tr>
+        <th>新闻类型id</th>
+        <th>新闻类型名称</th>
+        <th >操作</th>
+    </tr>
+    <tr th:each="newstype : ${list}">
+        <td class="typeid" th:text="${newstype.getId()}"></td>
+        <td th:text="${newstype.getTypeName()}"></td>
+        <td><button  class="delete" onclick="del(this)">删除</button>
+            <button onclick="show(this)" id="edit" th:value="${newstype.getId()}">修改</button>
+            <button type="button"  id="sumbit" onclick="sumbit(this)"  th:value="${newstype.getId()}">确定修改</button></td>
+        </td>
+    </tr>
+</table>
+
+<div id="upform" style='display:none;' align="center">
+    <h3>修 改 新 闻 类 型</h3>
+    <br class="form-group">
+    <label>将新闻类型修改为：</label>
+    <input type="text" id="uptype" placeholder="输入点击确认修改按钮" size="20"></br></br>
+    <button onclick="hide()">点此取消修改</button>
+</div>
+<div id="over"></div>
+</body>
+</html>
+<script type="text/javascript">
+    function show(){
+        var oDiv=document.getElementById("upform");
+        oDiv.style.display="block";
+        document.getElementById("edit").disabled = true
+    }
+    function hide()
+    {
+        var upform = document.getElementById('upform');
+        document.getElementById("edit").disabled = false
+        upform.style.display = "none";
+
+    }
+</script>

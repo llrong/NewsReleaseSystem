@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>登录页面</title>
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" href="../../static/css/login.css" />
+    <script type="text/javascript" src="../../static/js/login.js" th:src="@{/js/login.js}"></script>
+</head>
+<body>
+<div id="login_frame">
+    <h3>登 录</h3>
+    <input type="text" placeholder="请输入邮箱" id="email">
+    <input type="password" placeholder="请输入密码" id="password">
+    <div id="login_control">
+        <button onclick="jump()" id="submit">登录</button><br>
+        <label id="new">新用户？</label>
+        <a id="register" href="register.html" th:href="@{/register}">注册</a>
+    </div>
+</div>
+
+
+
+</body>
+</html>

@@ -14,8 +14,6 @@
     <result column="created" property="created" jdbcType="INTEGER" />
     <result column="updated" property="updated" jdbcType="INTEGER" />
     <result column="deleted" property="deleted" jdbcType="TINYINT" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.rong.web.pojo.NewsInfo" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -77,28 +75,12 @@
     </set>
     where id = #{id,jdbcType=TINYINT}
   </update>
-  <insert id="insert" parameterType="com.rong.web.pojo.NewsInfo" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com.rong.web.pojo.NewsInfo"  >
     insert into newsinfo (title, author, digest, 
       typeId, isCheck, picture, 
       hits, remark, created, 
       updated, deleted, content
-      )
-    <if test="title != null" >
-      title,
-    </if>
-    <if test="author != null" >
-      author,
-    </if>
-    <if test="typeId != null" >
-      typeId,
-    </if>
-    <if test="created != null" >
-      created,
-    </if>
-    <if test="content != null" >
-      content,
-    </if>
-    values (#{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, 
+      ) values (#{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR},
       #{typeId,jdbcType=INTEGER}, #{isCheck,jdbcType=TINYINT}, #{picture,jdbcType=VARCHAR}, 
       #{hits,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, 
       #{updated,jdbcType=INTEGER}, #{deleted,jdbcType=TINYINT}, #{content,jdbcType=LONGVARCHAR}
@@ -108,24 +90,9 @@
   <update id="updateByAuthor" parameterType="com.rong.web.pojo.NewsInfo" >
     update newsinfo
     <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="digest != null" >
-        digest = #{digest,jdbcType=VARCHAR},
-      </if>
-      <if test="typeId != null" >
-        typeId = #{typeId,jdbcType=INTEGER},
-      </if>
-      <if test="picture != null" >
-        picture = #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="updated != null" >
-        updated = #{updated,jdbcType=INTEGER},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
+      title = #{title,jdbcType=VARCHAR},digest = #{digest,jdbcType=VARCHAR},
+     typeId = #{typeId,jdbcType=INTEGER},picture = #{picture,jdbcType=VARCHAR},
+     updated = #{updated,jdbcType=INTEGER},content = #{content,jdbcType=LONGVARCHAR},
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
