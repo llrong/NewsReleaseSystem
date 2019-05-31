@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>修改个人信息</title>
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNews.css}" href="../../static/css/addNews.css"/>
+    <script src="../../static/js/user.js" th:src="@{/js/user.js}"></script>
+</head>
+
+<body >
+<div class="mes-send" >
+    <h3>修 改 个 人 信 息</h3></br></br>
+    <label><strong>用户名：</strong></label></br>
+    <input type="text" id="username"  placeholder="用户名" size="40"></br></br>
+    <label><strong>备  注：</strong></label></br>
+    <input type="text" id="remark"  placeholder="备注" size="40"></br></br>
+
+    <button onclick="info(this)"  th:value="${id}">提交</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+</div>
+</body>
+</html>

@@ -18,6 +18,9 @@ public interface UserMapper {
 
     User selectById(@Param("id") Integer id);
 
+    int updateById(@Param("id") Integer id,@Param("userName") String userName,@Param("remark") String remark);
 
-    int updateById(User user);
+    int updatePassById(@Param("id") Integer id,@Param("password") String password);
+
+    int setAdmin(@Param("id") Integer id);
 }

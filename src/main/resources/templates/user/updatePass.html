@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>修改密码</title>
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNews.css}" href="../../static/css/addNews.css"/>
+    <script src="../../static/js/user.js" th:src="@{/js/user.js}"></script>
+</head>
+
+<body >
+<div class="mes-send" >
+        <h3>修&nbsp;&nbsp;  改&nbsp;&nbsp;   密&nbsp;&nbsp;   码</h3></br></br>
+        <label><strong>当前密码：</strong></label></br>
+        <input type="password" id="oldpass"  placeholder="当前密码" size="40"></br></br>
+        <label><strong>新密码：</strong></label></br>
+        <input type="password" id="newpass"  placeholder="新密码" size="40"></br></br>
+        <label><strong>新密码(重复)：</strong></label></br>
+        <input type="password" id="confirm"  placeholder="新密码(重复)" size="40"></br></br>
+
+    <button onclick="sure(this)"  th:value="${id}">提交</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+</body>
+</html>

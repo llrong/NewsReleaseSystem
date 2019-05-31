@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查询我的新闻</title>
+    <script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" src="../static/js/queryNews.js" th:src="@{/js/queryNews.js}"></script>
+</head>
+<body>
+
+<table border="2"   cellspacing="0"  align="center"  th:align="center" >
+    <tr>
+        <th>新闻标题</th>
+        <th>新闻类型</th>
+        <th>创造时间</th>
+        <th>点击率</th>
+        <th>操作</th>
+
+    </tr>
+    <tr th:each="newsinfo : ${list}">
+        <td ><a  th:text="${newsinfo.getTitle()}"></a></td>
+        <td th:text="${newsinfo.getTypeId()}"></td>
+        <td th:text="${newsinfo.getCreated()}"></td>
+        <td th:text="${newsinfo.getHits()}"></td>
+        <th><button th:value="${newsinfo.getId()}" onclick="check(this)">查看</button> </th>
+    </tr>
+</table>
+</body>
+</html>

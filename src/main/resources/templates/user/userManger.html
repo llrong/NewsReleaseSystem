@@ -10,7 +10,7 @@
     <script src="../../static/js/judge.js" th:src="@{/js/judge.js}"></script>
 </head>
 
-<body onload="judge()">
+<body >
 <!--顶部信息区-->
 <header role="header">
     <div>
@@ -20,11 +20,9 @@
                 <span id="num" style="display: none"  th:text="${num}"></span>
                 <li ><strong id="name" th:text="${userName}"></strong></li>
                 <li><a href="../index.html" th:href="@{index}">返回首页</a></li>
-                <li><a href="news/addNews.html" th:href="@{addNews}">发布新闻</a></li>
+                <li id="typemanger"><a href="../newsType/newsTypeManger.html" th:href="@{newsTypeManger}">新闻类型管理</a></li>
                 <li id="newsmanger"><a href="../news/newsManger.html" th:href="@{../newsManger}">新闻管理</a></li>
                 <li><a href="menu.html" th:href="@{menu}">个人信息</a></li>
-                <li id="login"><a href="login.html" th:href="@{login}">登录</a>
-                    &nbsp;或&nbsp;<a href="register.html" th:href="@{register}">注册</a></li>
                 <li id="logout"><a href="login.html" onclick="out()">登出</a></li>
             </ul>
         </nav>
@@ -34,19 +32,18 @@
 <main role="main">
     <!--主体内联框架区-->
     <article role="content">
-        <iframe src="addUser.html" name="main"></iframe>
+        <iframe src="addUser.html" th:src="@{addUser}" name="main"></iframe>
     </article>
     <!--左侧导航区-->
     <aside>
         <nav role="option">
             <ul>
-                <li>导航列表</li>
-                <li><a href="addUser.html" class="active" target="main">添加用户</a></li>
-                <li><a href="queryUser.html" target="main">用户管理</a></li>
+                <li><strong>导航列表</strong></li>
+                <li><a href="addUser.html" th:href="@{addUser}" class="active" target="main">添加用户</a></li>
+                <li><a href="queryUser.html" th:href="@{/user/queryUsers}" target="main">用户管理</a></li>
             </ul>
         </nav>
     </aside>
 </main>
 </body>
 </html>
-

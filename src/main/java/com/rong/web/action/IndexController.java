@@ -1,6 +1,8 @@
 package com.rong.web.action;
 
+import com.rong.service.NewsInfoService;
 import com.rong.service.NewsTypeService;
+import com.rong.web.pojo.NewsInfo;
 import com.rong.web.pojo.NewsType;
 import com.rong.web.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class IndexController {
     @Autowired
     private NewsTypeService newsTypeService;
 
+    @Autowired
+    private NewsInfoService newsInfoService;
+
     @RequestMapping("/login")
     public String login() {
         return "user/login";
@@ -36,37 +41,60 @@ public class IndexController {
 
     @RequestMapping("/index")
     public String index(HttpServletRequest request, Model model) {
+        List<NewsType> type = newsTypeService.selectAllnewsTypes();
+        model.addAttribute("type",type);
+        List<NewsInfo>  hot = newsInfoService.selectHotNews();
+        List<NewsInfo>  curr = newsInfoService.selectCurrNews();
+        NewsInfo  cir = newsInfoService.selectCirNews();
+        NewsInfo  circle = newsInfoService.selectCircleNews();
+        model.addAttribute("hot",hot);
+        model.addAttribute("curr",curr);
+        model.addAttribute("cir",cir);
+        model.addAttribute("circle",circle);
         User user = (User)request.getSession().getAttribute("user");
         if(user == null){
             model.addAttribute("userName","未登录状态");
+            return "index";
         }else {
             model.addAttribute("num",user.getJusis());
             if(user.getJusis() == 0){
                 model.addAttribute("userName","欢迎您：用户"+user.getUserName());
+                return "index";
             }
             else {
                 model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+                return "adminIndex";
             }
         }
-        return "index";
+    }
+
+
+    @RequestMapping("/guide")
+    public String guide(HttpServletRequest request, Model model) {
+        int typeid = Integer.parseInt(request.getParameter("typeid"));
+        List<NewsType> type = newsTypeService.selectAllnewsTypes();
+        model.addAttribute("type",type);
+        List<NewsInfo>  news = newsInfoService.selectByTypeId(typeid);
+        User user = (User)request.getSession().getAttribute("user");
+        if(user == null){
+            model.addAttribute("userName","未登录状态");
+            return "guide";
+        }else {
+            model.addAttribute("num",user.getJusis());
+            if(user.getJusis() == 0){
+                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
+                return "guide";
+            }
+            else {
+                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+                return "guide";
+            }
+        }
     }
 
     @RequestMapping("/addNews")
     public String addNews(HttpServletRequest request, Model model) {
-        User user = (User)request.getSession().getAttribute("user");
-        List<NewsType> list = newsTypeService.selectAllnewsTypes();
-        model.addAttribute("list",list);
-        if(user == null){
-            model.addAttribute("userName","未登录状态");
-        }else {
-            model.addAttribute("num",user.getJusis());
-            if(user.getJusis() == 0){
-                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
-            }
-            else {
-                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
-            }
-        }return "news/addNews";
+       return "news/addNews";
     }
 
     @RequestMapping("/menu")
@@ -76,6 +104,7 @@ public class IndexController {
             model.addAttribute("userName","未登录状态");
         }else {
             model.addAttribute("num",user.getJusis());
+            model.addAttribute("id",user.getId());
             if(user.getJusis() == 0){
                 model.addAttribute("userName","欢迎您：用户"+user.getUserName());
             }
@@ -88,33 +117,15 @@ public class IndexController {
     @RequestMapping("/userManger")
     public String user(HttpServletRequest request, Model model) {
         User user = (User)request.getSession().getAttribute("user");
-        if(user == null){
-            model.addAttribute("userName","未登录状态");
-        }else {
-            model.addAttribute("num",user.getJusis());
-            if(user.getJusis() == 0){
-                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
-            }
-            else {
-                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
-            }
-        }return "user/userManger";
+        model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+        return "user/userManger";
     }
 
     @RequestMapping("/newsManger")
     public String news(HttpServletRequest request, Model model) {
         User user = (User)request.getSession().getAttribute("user");
-        if(user == null){
-            model.addAttribute("userName","未登录状态");
-        }else {
-            model.addAttribute("num",user.getJusis());
-            if(user.getJusis() == 0){
-                model.addAttribute("userName","欢迎您：用户"+user.getUserName());
-            }
-            else {
-                model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
-            }
-        }return "news/newsManger";
+        model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+        return "news/newsManger";
     }
 
 
@@ -138,10 +149,24 @@ public class IndexController {
             return "forget";
     }
 
+    @RequestMapping("newsTypeManger")
+    public String newsTypeManger(HttpServletRequest request,Model model){
+        User user = (User)request.getSession().getAttribute("user");
+        model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
+        return "newsType/newsTypeManger";
+    }
+
     @RequestMapping("/addNewsType")
-    public String addNewsType() {
-        //向后端发送数据的页面需要写一个请求解决前端的get问题，否则会出现405错误
+    public String addNewsType(HttpServletRequest request, Model model) {
         return "newsType/addNewsType";
+    }
+
+
+
+    @RequestMapping("/addUser")
+    public String addUser() {
+        //向后端发送数据的页面需要写一个请求解决前端的get问题，否则会出现405错误
+        return "user/addUser";
     }
 
 

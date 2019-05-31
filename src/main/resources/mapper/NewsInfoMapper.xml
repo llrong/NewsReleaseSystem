@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.rong.web.pojo.NewsInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
     <result column="author" property="author" jdbcType="VARCHAR" />
     <result column="digest" property="digest" jdbcType="VARCHAR" />
     <result column="typeId" property="typeId" jdbcType="INTEGER" />
@@ -14,7 +15,7 @@
     <result column="created" property="created" jdbcType="INTEGER" />
     <result column="updated" property="updated" jdbcType="INTEGER" />
     <result column="deleted" property="deleted" jdbcType="TINYINT" />
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -53,25 +54,64 @@
     content
   </sql>
   <select id="selectAllNews" resultMap="BaseResultMap" >
+    select
     <include refid="Base_Column_List" />
     from newsinfo
-    where deleted != 1 and isCheck = 1
-    order by hits desc created
+    where deleted = 0
   </select>
 
-  <select id="selectUnchecked" resultMap="BaseResultMap" >
+  <select id="selectMyNews" resultMap="BaseResultMap" >
+    select
     <include refid="Base_Column_List" />
     from newsinfo
-    where isCheck != 1
-    ORDER by created
+    where remark = #{remark,jdbcType=VARCHAR}
+    order by created
   </select>
+
+  <select id="selectByTypeId" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    where typeId = #{typeId,jdbcType=INTEGER}
+    order by created  limit 10
+  </select>
+
+  <select id="selectHotNews" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    order by hits desc limit 9
+  </select>
+
+
+
+  <select id="selectCurrNews" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    order by created desc limit 4
+  </select>
+
+  <select id="selectCirNews" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    order by created  limit 1
+  </select>
+
+
+  <select id="selectCircleNews" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    order by typeId DESC limit 1
+  </select>
+
 
   <update id="deleteById" parameterType="java.lang.Integer" >
     update newsinfo
     <set >
-      <if test="deleted!= null" >
-        deleted = #{deleted,jdbcType=LONGVARCHAR},
-      </if>
+        deleted = 1,
     </set>
     where id = #{id,jdbcType=TINYINT}
   </update>
@@ -104,6 +144,15 @@
         isCheck = 0,
       </if>
     </set>
-    where id = #{id,jdbcType=TINYINT}
+    where id = id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectNewsById" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
 </mapper>
+

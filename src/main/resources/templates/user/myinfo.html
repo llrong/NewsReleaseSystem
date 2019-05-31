@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript"  src="../static/js/user.js" th:src="@{/js/user.js}"></script>
+    <!--<script type="text/javascript" src="../static/js/queryNews.js" th:src="@{/js/queryNews.js}"></script>-->
+</head>
+<body>
+
+<br><br><br><br>
+<h3  align="center"  th:align="center" > 个 人 信 息</h3>
+<table   align="center"  th:align="center"  >
+
+    <tr>
+        <td>用&nbsp;&nbsp;户&nbsp;&nbsp;名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td></td>
+        <td th:text="${user.getUserName()}"></td>
+
+    </tr>
+    &nbsp;
+    <tr>
+        <td>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+        <td></td>
+        <td th:text="${user.getEmail()}"></td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+        <td>身&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;份：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td></td>
+        <td th:text="${admin}"></td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+        <td>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+        <td></td>
+        <td th:text="${bei}"></td>
+    </tr>
+</table>
+</body>
+</html>

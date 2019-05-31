@@ -10,7 +10,7 @@
     <script src="../../static/js/judge.js" th:src="@{/js/judge.js}"></script>
 </head>
 
-<body onload="judge()">
+<body onload="menujudge()">
 <!--顶部信息区-->
 <header role="header">
     <div>
@@ -18,13 +18,12 @@
         <nav role="user">
             <ul>
                 <span id="num" style="display: none"  th:text="${num}"></span>
+                <span id="id" style="display: none"  th:text="${id}"></span>
                 <li ><strong id="name" th:text="${userName}"></strong></li>
                 <li><a href="../index.html" th:href="@{index}">返回首页</a></li>
-                <li ><a href="../news/addNews.html" th:href="@{addNews}">发布新闻</a></li>
+                <li id="typemanger"><a href="../newsType/newsTypeManger.html" th:href="@{newsTypeManger}">新闻类型管理</a></li>
                 <li id="newsmanger"><a href="../news/newsManger.html" th:href="@{../newsManger}">新闻管理</a></li>
-                <li id="usermanger"><a href="userManger.html" th:href="@{userManger.html}">用户管理</a></li>
-                <li id="login"><a href="login.html" th:href="@{login}">登录</a>
-                    &nbsp;或&nbsp;<a href="register.html" th:href="@{register}">注册</a></li>
+                <li id="usermanger"><a href="userManger.html" th:href="@{userManger}">用户管理</a></li>
                 <li id="logout"><a href="login.html" onclick="out()">登出</a></li>
             </ul>
         </nav>
@@ -34,19 +33,19 @@
 <main role="main">
     <!--主体内联框架区-->
     <article role="content">
-        <iframe src="../index.html" name="main"></iframe>
+        <iframe src="myinfo.html" th:src="@{/user/myinfo}"  name="main"></iframe>
 
     </article>
     <!--左侧导航区-->
     <aside>
         <nav role="option">
             <ul>
-                <li>导航列表</li>
-                <li><a href="../index.html" class="active" target="main">系统设置</a></li>
-                <li><a href="userManger.html" target="main">用户管理</a></li>
-                <li><a href="../forget.html" target="main">文档管理</a></li>
-                <li><a href="category.html" target="main">留言管理</a></li>
-                <li><a href="product.html" target="main">产品管理</a></li>
+                <li><strong>导航列表</strong></li>
+                <li><a href="myinfo.html"  th:href="@{/user/myinfo}" class="active" target="main">个人信息</a></li>
+                <li><a href="updateInfo.html" th:href="@{'/user/updateInfo?id='+${id}}" target="main">修改个人信息</a></li>
+                <li><a href="updatePass.html" th:href="@{'/user/updatePass?id='+${id}}" target="main">修改密码</a></li>
+                <li  id="mynews"><a href="../news/queryMyNews"  th:href="@{/news/queryMyNews}" target="main">我发表的新闻</a></li>
+                <li><a href="../Comment/queryMyComment.html" target="main">我发表的评论</a></li>
             </ul>
         </nav>
     </aside>

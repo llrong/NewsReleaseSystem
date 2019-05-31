@@ -32,29 +32,41 @@ public class NewsInfoService {
         return newsInfoMapper.updateByIdByAdmin(id);
     }
 
-    public List<Map<String,Object>> selectAllNews(){
+    public List<NewsInfo> selectAllNews(){
         List<NewsInfo>  list = newsInfoMapper.selectAllNews();
-        List<Map<String, Object>> result = new ArrayList<>(list.size());
-        for (NewsInfo newsInfo : list) {
-            Map<String, Object> map = new HashMap<>(10);
-            map.put("id", newsInfo.getId());
-            map.put("title", newsInfo.getTitle());
-            result.add(map);
-        }
-        return result;
+        return list;
     }
-    public List<Map<String,Object>> selectUnchecked(){
-        List<NewsInfo>  list = newsInfoMapper.selectAllNews();
-        List<Map<String, Object>> result = new ArrayList<>(list.size());
-        for (NewsInfo newsInfo : list) {
-            Map<String, Object> map = new HashMap<>(10);
-            map.put("id", newsInfo.getId());
-            map.put("title", newsInfo.getTitle());
-            map.put("author",newsInfo.getAuthor());
-            map.put("content",newsInfo.getContent());
-            map.put("digest",newsInfo.getDigest());
-            result.add(map);
-        }
-        return result;
+    public List<NewsInfo> selectMyNews(String remark){
+        List<NewsInfo>  list = newsInfoMapper.selectMyNews(remark);
+        return list;
     }
+
+    public List<NewsInfo> selectByTypeId(Integer typeId){
+        List<NewsInfo>  list = newsInfoMapper.selectByTypeId(typeId);
+        return list;
+    }
+
+    public NewsInfo selectCirNews(){
+        return newsInfoMapper.selectCirNews();
+
+    }
+    public NewsInfo selectCircleNews(){
+        return newsInfoMapper.selectCircleNews();
+
+    }
+
+    public List<NewsInfo> selectCurrNews(){
+        List<NewsInfo>  list = newsInfoMapper.selectCurrNews();
+        return list;
+    }
+
+    public List<NewsInfo> selectHotNews(){
+        List<NewsInfo>  list = newsInfoMapper.selectHotNews();
+        return list;
+    }
+
+    public NewsInfo selectNewsById(Integer id){
+        return newsInfoMapper.selectNewsById(id);
+    }
+
 }

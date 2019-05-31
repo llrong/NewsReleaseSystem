@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>新建</title>
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNews.css}" href="../../static/css/addNews.css"/>
+    <script type="text/javascript" src="../../static/js/user.js" th:src="@{/js/user.js}"></script>
+</head>
+<body>
+<div class="mes-send" >
+    <h3>添 加 用 户</h3>
+    <br class="form-group">
+        <label >用户名称：</label>
+        <input type="text" id="username"  placeholder="输入用户名" size="50"></br></br>
+        <label >密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+        <input type="text" id="password"  placeholder="输入密码" size="50"></br></br>
+        <label >邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</label>
+        <input type="text" id="email"  placeholder="输入邮箱" size="50"></br></br>
+        <label >是否为管理员:</label>
+        <select id="admin" class="select2" >
+            <option value="否">否</option>
+            <option value="是">是</option>
+        </select>
+    </br></br>
+    <button onclick="add(this)" id="tijiao">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button  type="reset"  >重置</button>
+    </div>
+
+
+</div>
+
+
+
+</body>
+</html>

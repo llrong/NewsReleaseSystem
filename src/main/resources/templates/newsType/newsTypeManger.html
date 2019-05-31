@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>发表新闻</title>
+    <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" src="../../static/js/judge.js" th:src="@{/js/judge.js}"></script>
+    <script type="text/javascript" src="../../static/js/addNews.js" th:src="@{/js/addNews.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../../static/css/index.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../../static/css/menu.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNews.css}" href="../../static/css/addNews.css"/>
+
+</head>
+
+<body >
+<header role="header">
+    <div>
+        <h1>新闻类型管理</h1>
+        <nav role="user">
+            <ul>
+                <span id="num" style="display: none"  th:text="${num}"></span>
+                <li><strong id="name" th:text="${userName}"></strong></li>
+                <li><a href="../index.html" th:href="@{index}">返回首页</a></li>
+                <li id="newsmanger"><a href="newsManger.html" th:href="@{newsManger}">新闻管理</a></li>
+                <li id="usermanger"><a href="../user/userManger.html" th:href="@{userManger}">用户管理</a></li>
+                <li><a href="../user/menu.html" th:href="@{menu}">个人信息</a></li>
+                <li id="logout"><a href="../user/login.html" onclick="out()">登出</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+ 
+<main role="main">
+    <!--主体内联框架区-->
+    <article role="content">
+        <iframe src="queryNewsType.html" th:href="@{/newstype/queryNewsType}"  name="main"></iframe>
+
+    </article>
+    <!--左侧导航区-->
+    <aside>
+        <nav role="option">
+            <ul>
+                <li><strong>导航列表</strong></li>
+                <li><a href="queryNewsType.html" th:href="@{/newstype/queryNewsType}" class="active" target="main">新闻类型管理</a></li>
+                <li><a href="addNewsType.html" th:href="@{addNewsType}" class="active" target="main" >添加新闻类型</a></li>
+            </ul>
+        </nav>
+    </aside>
+</main>
+</body>
+</html>
+
+

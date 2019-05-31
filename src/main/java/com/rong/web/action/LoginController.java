@@ -56,13 +56,13 @@ public class LoginController {
         int result;
         if(user != null ) {
             result = 0;//前端返回说明此邮箱已被注册
-        }else if(email==""||password=="" || userName=="" ||confirm==""){
-            result = 2;   //有选项填写为空
-        }else if (password.length() < 6){
-            result = 3;    //密码长度小于6
-        } else if(!password.equals(confirm)){   //数据库中查询到的密码跟前端获取到的对比
-            result = 4;     //两次密码长度不一致
         }else{
+            User newuser = new User();
+            newuser.setUserName(userName);
+            newuser.setEmail(email);
+            newuser.setPassword(password);
+            newuser.setJusis(0);
+            userService.insertUser(newuser);
             result = 1;  //成功注册
         }
         return result;

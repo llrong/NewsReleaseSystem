@@ -8,10 +8,19 @@ public class DateTimeUtils {
     public static String  getFormatTime(int time){
         long t = (long)time*1000;
 
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//将毫秒级long值转换成日期格式
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");//将毫秒级long值转换成日期格式
 
         GregorianCalendar gc = new GregorianCalendar();
 
+        gc.setTimeInMillis(t);
+        String dateStr = dateformat.format(gc.getTime());
+        return  dateStr;
+    }
+
+    public static String  getTime(int time){
+        long t = (long)time*1000;
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");//将毫秒级long值转换成日期格式
+        GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeInMillis(t);
         String dateStr = dateformat.format(gc.getTime());
         return  dateStr;

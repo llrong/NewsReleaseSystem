@@ -19,9 +19,6 @@
             <ul>
                 <span id="num" style="display: none"  th:text="${num}"></span>
                 <li ><strong id="name" th:text="${userName}"></strong></li>
-                <li><a href="news/addNews.html" th:href="@{addNews}">发布新闻</a></li>
-                <li id="newsmanger"><a href="news/newsManger.html" th:href="@{newsManger}">新闻管理</a></li>
-                <li id="usermanger"><a href="user/userManger.html" th:href="@{userManger}">用户管理</a></li>
                 <li><a href="user/menu.html" th:href="@{menu}" onclick="return menu()">个人信息</a></li>
                 <li id="login"><a href="user/login.html" th:href="@{login}">登录</a>
                     &nbsp;或&nbsp;<a href="user/register.html" th:href="@{register}">注册</a></li>
@@ -44,61 +41,57 @@
     </div>
     <div id="navigate">
         <a href="#" class="selected">首页</a>
-        <a href="#">热点</a>
-        <a href="#">国内</a>
-        <a href="#">国际</a>
-        <a href="#">军事</a>
-        <a href="#">财经</a>
-        <a href="#">互联网</a>
-        <a href="#">体育</a>
-        <a href="#">娱乐</a>
-        <a href="#">科技</a>
-        <a href="#">房产</a>
-        <a href="#">汽车</a>
-        <a href="#">社会</a>
-        <a href="#">游戏</a>
-        <a href="#">教育</a>
-        <a href="#">图片</a>
-        <a href="#">人物</a>
-        <a href="#">新闻名站</a></div>
-    <div id="recommend">
-        <div id="recommend_left">
-            <div id="recommend_left_1">
-                <p class="recommend_left_1_bt">菲称台渔船冲撞才射击 躲渔船像惊悚片</p>
-                <p>[台渔船否认冲撞] [马英九:菲律宾冷血谋杀] [台军演疑遭美舰艇尾随] </p>
-                <p class="recommend_left_1_bt">央视：达赖集团发布《自焚指导书》操纵自焚</p>
-                <p>[步骤设计详细] [一见火光冲天就兴奋] [称自焚者为英雄] [视频] </p>
-                <p class="recommend_left_1_bt">香港轻轨列车出轨至少62人伤 </p>
-                <p>[轻铁转弯时出事 不少乘客倒地流血] [3名重伤者已送往医院] </p>
-            </div>
-            <div id="recommend_left_2">
-                <p class="recommend_left_2_bt">消息称高层正起草7大领域改革方案 涉户籍制度 </p>
-                <ul>
-                    <li>最高检公布刑事赔偿新标准 日赔偿额为182.35元 </li>
-                    <li>美国称跟踪到中国探空火箭:发射过程携多个物体 </li>
-                    <li>中国海监船编队巡航钓鱼岛领海 驱离日侵权船舶 </li>
-                    <li>中央8项规定出台 北京部分高端餐厅开卖火锅包子 </li>
-                </ul>
-            </div>
+        <div th:each="type : ${type}">
+            <a  th:text="${type.getTypeName()}" th:value="${type.getId()}" onclick="guide(this)"></a>
         </div>
-        <div id="recommend_right">
-            <div id="recommend_right_1" >
-                <img src="../static/picture/quan.jpg" th:src="@{/picture/quan.jpg}"  width="560" height="400"/>
-                <p>中国拳手徐灿TKO日本拳手 成功卫冕世界拳王金腰带</p>
+    </div>
+        <div id="recommend">
+            <div id="recommend_left">
+                <div id="recommend_left_1" >
+                    <ul th:each="hot : ${hot}">
+                        <li > <p ><a th:text="${hot.getTitle()}"></a></p></li>
+                    </ul>
+                </div>
+                <div id="recommend_left_2">
+                    <p class="recommend_left_2_bt"  >消息称高层正起草7大领域改革方案 涉户籍制度 </p>
+                    <ul  th:each="curr : ${curr}">
+                        <li ><a  th:text="${curr.getTitle()}"></a> </li>
+                    </ul>
+                </div>
             </div>
-            <div id="recommend_right_2">
-                <div class="recommend_right_2_bt">滚动新闻</div>
-                <div class="recommend_right_2_m">
-                    <!--<marquee scrollamount="2">|暴雨袭击藤县局部受灾|挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立 |岑溪工商开展儿童用品市场专项整治见成效|</marquee>-->
-                    <marquee scrollamount="2"><a href="userManger/login.html">暴雨袭击藤县局部受灾</a>&nbsp;|&nbsp;<a href="userManger/register.html">挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立</a></marquee>
+            <div id="recommend_right">
+                <div id="recommend_right_1" >
+                    <img src="../static/picture/quan.jpg" th:src="@{/picture/quan.jpg}"  width="560" height="400"/>
+                    <p>中国拳手徐灿TKO日本拳手 成功卫冕世界拳王金腰带</p>
+                </div>
+                <div id="recommend_right_2">
+                    <div class="recommend_right_2_bt">滚动新闻</div>
+                    <div class="recommend_right_2_m">
+                        <!--<marquee scrollamount="2">|暴雨袭击藤县局部受灾|挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立 |岑溪工商开展儿童用品市场专项整治见成效|</marquee>-->
+                        <marquee scrollamount="2"  >
+                            <marquee scrollamount="2">
+                                <a th:text="${cir.getTitle()}"></a>&nbsp;|&nbsp;
+                                <a th:text="${circle.getTitle()}"></a></marquee>
+                        </marquee>
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="technology"></div>
+        <div id="relevant"></div>
+        <div id="footer"></div>
     </div>
-    <div id="technology"></div>
-    <div id="relevant"></div>
-    <div id="footer"></div>
-</div>
 </body>
 </html>
+<script>
+    function judge(){
+        var num = document.getElementById("num").innerText;
+        console.info(num);
+        if(num == "" || num== null){
+            document.getElementById("logout").style.display = 'none';
+        }else {
+            document.getElementById("login").style.display = 'none';
+        }
+    }
+</script>
 

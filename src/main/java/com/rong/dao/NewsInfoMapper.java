@@ -14,11 +14,23 @@ public interface NewsInfoMapper {
 
     List<NewsInfo> selectAllNews();
 
-    List<NewsInfo> selectUnchecked();
+    List<NewsInfo> selectByTypeId(@Param("typeId")Integer typeId);
+
+    List<NewsInfo> selectHotNews();
+
+    NewsInfo selectCirNews();
+
+    NewsInfo selectCircleNews();
+
+    List<NewsInfo> selectCurrNews();
+
+    List<NewsInfo> selectMyNews(@Param("remark") String remark);
 
     int updateByAuthor(NewsInfo newsInfo);
 
     int updateByIdByAdmin(@Param("id")Integer id);
+
+    NewsInfo selectNewsById(@Param("id")Integer id);
 
 
 }

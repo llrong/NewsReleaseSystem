@@ -37,37 +37,48 @@ function reg() {
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var confirm  = document.getElementById("confirm").value;
-    $.ajax({
+    if(email==""){
+        alert("请填写邮箱！")
+    }
+    else if(username==""){
+        alert("请填写用户名！")
+    }
+    else if(password==""){
+        alert("请填写密码！")
+    }
+    else if(confirm==""){
+        alert("请填写确认密码！")
+    }else if (password.length() < 6){
+        result = 3;    //密码长度小于6
+    } else if(!password.equals(confirm)){   //数据库中查询到的密码跟前端获取到的对比
+        result = 4;     //两次密码长度不一致
+    }else{
+        $.ajax({
 
-        url: "/first/register",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            username:username,
-            email:email,
-            password:password,
-            confirm:confirm
-        },
-        success: function (result) {
-            if (result == 1) {
-                alert("注册成功，请登录！");
-                window.location.href='/login';
-            } else if(result == 0){
-                alert("此邮箱已被注册！");
+            url: "/first/register",
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                username:username,
+                email:email,
+                password:password,
+                confirm:confirm
+            },
+            success: function (result) {
+                if (result == 1) {
+                    alert("注册成功，请登录！");
+                    window.location.href='/login';
+                } else if(result == 0){
+                    alert("此邮箱已被注册！");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log('XMLHttpRequest:');
+                console.log(XMLHttpRequest);
             }
-            else if(result == 2){
-                alert("有资料填写为空！");
-            } else if(result == 3){
-                alert("密码长度小于6");
-            }else{
-                alert("两次密码长度不一致");
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log('XMLHttpRequest:');
-            console.log(XMLHttpRequest);
-        }
-    });
+        });
+    }
+
 }
 
 

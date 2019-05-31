@@ -30,21 +30,22 @@ public class UserService {
     }
 
 
-    public List<Map<String,Object>> selectAllUsers(){
+    public List<User> selectAllUsers(){
         List<User>  list = userMapper.selectAllUsers();
-        List<Map<String, Object>> result = new ArrayList<>(list.size());
-        for (User user : list) {
-            Map<String, Object> map = new HashMap<>(10);
-            map.put("id", user.getId());
-            map.put("email", user.getEmail());
-            map.put("juris", user.getJusis()==0?"普通用户":"管理员");
-            result.add(map);
-            }
-        return result;
+        return list;
     }
 
-    public int updateUserById(User user){
-        return userMapper.updateById(user);
+    public int updateUserById(Integer id,String userName,String remark){
+        return userMapper.updateById(id,userName,remark);
+    }
+
+
+    public int updatePassById(Integer id,String password){
+        return userMapper.updatePassById(id,password);
+    }
+
+    public  int setAdmin(Integer id){
+        return  userMapper.setAdmin(id);
     }
 
 }

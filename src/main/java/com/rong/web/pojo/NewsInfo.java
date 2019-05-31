@@ -20,7 +20,7 @@ public class NewsInfo implements Serializable{
 
     private Integer hits;
 
-    private String remark;
+    private String remark;   //作者id
 
     private Integer created;
 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>首页</title>
+    <script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../static/css/index.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../static/css/menu.css" />
+    <script type="text/javascript" src="../static/js/judge.js" th:src="@{/js/judge.js}"></script>
+</head>
+
+<body >
+<!--顶部信息区-->
+<header role="header">
+    <div>
+        <h1>新闻发布系统首页</h1>
+        <nav role="user">
+            <ul>
+                <span id="num" style="display: none"  th:text="${num}"></span>
+                <li ><strong id="name" th:text="${userName}"></strong></li>
+                <li id="typemanger"><a href="../newsType/newsTypeManger.html" th:href="@{newsTypeManger}">新闻类型管理</a></li>
+                <li id="newsmanger"><a href="../news/newsManger.html" th:href="@{../newsManger}">新闻管理</a></li>
+                <li id="usermanger"><a href="user/userManger.html" th:href="@{userManger}">用户管理</a></li>
+                <li><a href="user/menu.html" th:href="@{menu}" onclick="return menu()">个人信息</a></li>
+                <!--<li id="login"><a href="user/login.html" th:href="@{login}">登录</a>-->
+                    <!--&nbsp;或&nbsp;<a href="user/register.html" th:href="@{register}">注册</a></li>-->
+                <li id="logout"><a href="user/login.html" onclick="out()">登出</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div id="body">
+    <div id="search">
+        <div id="search_left"><a href="#"><img src="../static/picture/login.png" th:src="@{/picture/login.png}" alt="新闻系统" height="46px" width="137px"></a></div>
+        <div id="search_right">
+            <form id="search_right_2" action="" method="post" >
+                <div class="input-append">
+                    <input type="text" class="span5" placeholder="请输入关键字">
+                    <button class="btn" type="button">搜索</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="navigate">
+        <a href="#" class="selected">首页</a>
+        <div th:each="type : ${type}">
+            <a  th:text="${type.getTypeName()}" th:value="${type.getId()}" onclick="guide(this)"></a>
+        </div>
+    </div>
+    <div id="recommend">
+        <div id="recommend_left">
+            <div id="recommend_left_1" >
+                <ul th:each="hot : ${hot}">
+                    <li > <p ><a th:text="${hot.getTitle()}"></a></p></li>
+                </ul>
+            </div>
+            <div id="recommend_left_2">
+                <p class="recommend_left_2_bt"  >消息称高层正起草7大领域改革方案 涉户籍制度 </p>
+                <ul  th:each="curr : ${curr}">
+                    <li ><a  th:text="${curr.getTitle()}"></a> </li>
+                </ul>
+            </div>
+        </div>
+        <div id="recommend_right">
+            <div id="recommend_right_1" >
+                <img src="../static/picture/quan.jpg" th:src="@{/picture/quan.jpg}"  width="560" height="400"/>
+                <p>中国拳手徐灿TKO日本拳手 成功卫冕世界拳王金腰带</p>
+            </div>
+            <div id="recommend_right_2">
+                <div class="recommend_right_2_bt">滚动新闻</div>
+                <div class="recommend_right_2_m">
+                    <!--<marquee scrollamount="2">|暴雨袭击藤县局部受灾|挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立 |岑溪工商开展儿童用品市场专项整治见成效|</marquee>-->
+                    <marquee scrollamount="2"  >
+                        <marquee scrollamount="2">
+                            <a th:text="${cir.getTitle()}"></a>&nbsp;|&nbsp;
+                            <a th:text="${circle.getTitle()}"></a></marquee>
+                    </marquee>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="technology"></div>
+    <div id="relevant"></div>
+    <div id="footer"></div>
+</div>
+</body>
+</html>
+<script>
+    function judge() {
+        var num = document.getElementById("num").innerText;
+        console.info(num);
+        if (num == 1) {
+            document.getElementById("login").style.display = 'none';
+        }
+    }
+</script>
+

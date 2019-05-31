@@ -1,6 +1,4 @@
-function del(Obj) {
-    var $td = $(Obj).parents('tr').children('td');
-    var id = $td.eq(0).text();
+function del(id) {
     console.info(id);
     $.ajax({
         url: "/newstype/deleted/"+id,
@@ -9,7 +7,6 @@ function del(Obj) {
         success: function (result) {
             if (result == 1) {
                 alert("删除新闻类型成功！");
-                window.location.href="/queryNewsType";
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -35,10 +32,8 @@ function sumbit(id){
             success:function(result){
                 if (result == 1) {
                     alert("修改新闻类型成功！");
-                    window.location.href="/queryNewsType";
                 }else{
                     alert("请先点击修改按钮！");
-                    window.location.href="/queryNewsType";
                 }
 
                 uptype.value="";

@@ -1,20 +1,35 @@
-function judge(){
+// function judge(){
+//     var num = document.getElementById("num").innerText;
+//     console.info(num);
+//     if(num == "" || num== null){
+//
+//         document.getElementById("typemanger").style.display = 'none';
+//         document.getElementById("newsmanger").style.display = 'none';
+//         document.getElementById("usermanger").style.display = 'none';
+//         document.getElementById("logout").style.display = 'none';
+//     }else{
+//         document.getElementById("login").style.display = 'none';
+//         if(num == 0){
+//             document.getElementById("typemanger").style.display = 'none';
+//             document.getElementById("newsmanger").style.display = 'none';
+//             document.getElementById("usermanger").style.display = 'none';
+//         }
+//     }
+//
+// }
+
+function menujudge(){
     var num = document.getElementById("num").innerText;
     console.info(num);
-    if(num == "" || num== null){
-        document.getElementById("newsmanger").style.display = 'none';
-        document.getElementById("usermanger").style.display = 'none';
-        document.getElementById("logout").style.display = 'none';
-    }else{
-        document.getElementById("login").style.display = 'none';
-        if(num == 0){
+       if(num == 0){
+            document.getElementById("mynews").style.display = 'none';
+            document.getElementById("typemanger").style.display = 'none';
             document.getElementById("newsmanger").style.display = 'none';
             document.getElementById("usermanger").style.display = 'none';
         }
-    }
+
 
 }
-
 
 function out() {
         $.ajax({
@@ -68,4 +83,28 @@ function menu() {
 //     }
 //
 // }
+
+
+
+function guide(typeid)  {
+    var typeid = typeid.value;
+    console.info(typeid);
+    $.ajax({
+        url: "/guide",
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            typeid:typeid
+        },
+        success: function (result) {
+            if (result == 1) {
+                window.location.href="/guide";
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log('XMLHttpRequest:');
+            console.log(XMLHttpRequest);
+        }
+    });
+}
 

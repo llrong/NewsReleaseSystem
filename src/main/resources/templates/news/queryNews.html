@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻审核</title>
+    <script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script src="../static/js/querynews.js" th:src="@{/js/querynews.js}"></script>
+</head>
+<body>
+
+<table border="2"   cellspacing="0"   align="center"  th:align="center" >
+    <tr>
+        <th>新闻id</th>
+        <th>新闻标题</th>
+        <th>作者</th>
+        <th>新闻类型</th>
+        <th>创造时间</th>
+        <th >操作</th>
+    </tr>
+    <tr th:each="newsinfo : ${list}">
+        <td th:text="${newsinfo.id}"></td>
+        <td th:text="${newsinfo.getTitle()}"></td>
+        <td th:text="${newsinfo.getAuthor()}"></td>
+        <td th:text="${newsinfo.getTypeId()}"></td>
+        <td th:text="${newsinfo.getCreated()}"></td>
+        <td><a  th:value="${newsinfo.getId()}" href="NewsInfo.html" th:href="@{'/news/check?id='+${newsinfo.id}}">查看</a> &nbsp;&nbsp;
+            <button  class="delete" onclick="del(this)" th:value="${newsinfo.id}">删除</button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+<script>
+    function del(id) {
+        var newsid = id.value;
+        console.info("news"+newsid);
+        $.ajax({
+            url: "/news/deleted",
+            type: 'POST',
+            dataType: 'json',
+            data:{
+                newsid:newsid
+            },
+            success: function (result) {
+                if (result == 1) {
+                    alert("删除新闻成功！");
+                }else{
+                    alert("删除新闻失败！");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log('XMLHttpRequest:');
+                console.log(XMLHttpRequest);
+            }
+        });
+    }
+
+    (function() {
+        $(".deploy-apply").click(function () {
+            $.ajax({
+                'url': '${rc.contextPath}/schedule/deployApp/' + did,
+                'type': 'post',
+                'dataType': 'json',
+                success: function (data) {
+                    window.location.reload(true);
+                }
+                cancel: function (button) {
+                    // nothing to do
+                }
+            })
+        })
+    })(jQuery)
+</script>
