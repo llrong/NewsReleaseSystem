@@ -31,31 +31,32 @@
     <div id="search">
         <div id="search_left"><a href="#"><img src="../static/picture/login.png" th:src="@{/picture/login.png}" alt="新闻系统" height="46px" width="137px"></a></div>
         <div id="search_right">
-            <form id="search_right_2" action="" method="post" >
+            <form id="search_right_2" action="/search" method="post" >
                 <div class="input-append">
-                    <input type="text" class="span5" placeholder="请输入关键字">
-                    <button class="btn" type="button">搜索</button>
+                    <input type="text" class="span5" name="key" id="key" placeholder="请输入关键字">
+                    <button class="btn" type="submit" >搜索</button>
                 </div>
             </form>
         </div>
     </div>
     <div id="navigate">
         <a href="#" class="selected">首页</a>
-        <div th:each="type : ${type}">
-            <a  th:text="${type.getTypeName()}" th:value="${type.getId()}" onclick="guide(this)"></a>
+        <div th:each="t : ${type}">
+            <a th:text="${t.getTypeName()}"  th:href="@{'guide?id='+${t.id}}"></a>
+
         </div>
     </div>
         <div id="recommend">
             <div id="recommend_left">
                 <div id="recommend_left_1" >
                     <ul th:each="hot : ${hot}">
-                        <li > <p ><a th:text="${hot.getTitle()}"></a></p></li>
+                        <li > <p ><a th:text="${hot.getTitle()}"  th:href="@{'news/getnews/?id='+${hot.id}}"></a></p></li>
                     </ul>
                 </div>
                 <div id="recommend_left_2">
                     <p class="recommend_left_2_bt"  >消息称高层正起草7大领域改革方案 涉户籍制度 </p>
                     <ul  th:each="curr : ${curr}">
-                        <li ><a  th:text="${curr.getTitle()}"></a> </li>
+                        <li ><a  th:text="${curr.getTitle()}"  th:href="@{'/news/getnews/?id='+${curr.id}}"></a> </li>
                     </ul>
                 </div>
             </div>
@@ -70,8 +71,8 @@
                         <!--<marquee scrollamount="2">|暴雨袭击藤县局部受灾|挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立 |岑溪工商开展儿童用品市场专项整治见成效|</marquee>-->
                         <marquee scrollamount="2"  >
                             <marquee scrollamount="2">
-                                <a th:text="${cir.getTitle()}"></a>&nbsp;|&nbsp;
-                                <a th:text="${circle.getTitle()}"></a></marquee>
+                                <a th:text="${cir.getTitle()}"   th:href="@{'/news/getnews/?id='+${cir.id}}"></a>&nbsp;|&nbsp;
+                                <a th:text="${circle.getTitle()}"   th:href="@{'/news/getnews/?id='+${circle.id}}"></a></marquee>
                         </marquee>
                     </div>
                 </div>

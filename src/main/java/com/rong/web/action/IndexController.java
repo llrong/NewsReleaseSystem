@@ -11,12 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -71,25 +73,25 @@ public class IndexController {
 
     @RequestMapping("/guide")
     public String guide(HttpServletRequest request, Model model) {
-        int typeid = Integer.parseInt(request.getParameter("typeid"));
+        String id = request.getParameter("id");
         List<NewsType> type = newsTypeService.selectAllnewsTypes();
         model.addAttribute("type",type);
-        List<NewsInfo>  news = newsInfoService.selectByTypeId(typeid);
+        List<NewsInfo>  news = newsInfoService.selectByTypeId(Integer.parseInt(id));
+        model.addAttribute("news",news);
         User user = (User)request.getSession().getAttribute("user");
         if(user == null){
             model.addAttribute("userName","未登录状态");
-            return "guide";
         }else {
             model.addAttribute("num",user.getJusis());
             if(user.getJusis() == 0){
                 model.addAttribute("userName","欢迎您：用户"+user.getUserName());
-                return "guide";
             }
             else {
                 model.addAttribute("userName","欢迎您：管理员"+user.getUserName());
-                return "guide";
             }
         }
+        return "guide";
+
     }
 
     @RequestMapping("/addNews")
@@ -167,6 +169,20 @@ public class IndexController {
     public String addUser() {
         //向后端发送数据的页面需要写一个请求解决前端的get问题，否则会出现405错误
         return "user/addUser";
+    }
+
+    @RequestMapping("/search")
+    public String searchNews(HttpServletRequest request,Model model){
+        String key = request.getParameter("key");
+        List<NewsInfo> list = newsInfoService.selectAllNews();
+        List<NewsInfo> res = new ArrayList<>(list.size());
+        for( NewsInfo newsInfo : list){
+            if(newsInfo.getTitle().contains(key)){
+                res.add(newsInfo);
+            }
+        }
+        model.addAttribute("result",res);
+        return "news/searchNews";
     }
 
 

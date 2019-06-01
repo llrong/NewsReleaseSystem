@@ -24,10 +24,12 @@
     clear:both;
     padding:1em 4em;
     margin-top: 40px;
+   position: absolute;
+    top:100px;
+    left: 300px;
 }
 p{
     text-indent: 2em;
-    text-overflow: hidden;
     font-size:18px;
 }
 

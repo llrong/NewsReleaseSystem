@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻审核</title>
+    <script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script src="../static/js/comment.js" th:src="@{/js/comment.js}"></script>
+</head>
+<body>
+
+<table border="2"   cellspacing="0"   align="center"  th:align="center" >
+    <tr>
+        <th>评论内容</th>
+        <th>创造时间</th>
+        <th >操作</th>
+    </tr>
+    <tr th:each="com : ${list}">
+        <td th:text="${com.commentContent}"></td>
+        <td th:text="${com.getCreated()}"></td>
+        <td><button  class="delete" onclick="del(this)" th:value="${com.getId()}">删除</button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+<script>
+
+
+</script>

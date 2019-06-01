@@ -1,8 +1,6 @@
 package com.rong.web.pojo;
 
-import java.io.Serializable;
-
-public class Comment implements Serializable{
+public class Comment {
     private Integer id;
 
     private Integer newsId;

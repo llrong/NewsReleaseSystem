@@ -46,10 +46,10 @@
   </sql>
 
   <select id="selectByOwerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from comment
-    where owerId = #{owerId,jdbcType=INTEGER}
+    where owerId = #{owerId,jdbcType=INTEGER} and deleted = 0
     order by created desc
   </select>
 
@@ -62,12 +62,12 @@
   </select>
 
   <insert id="insert" parameterType="com.rong.web.pojo.Comment" useGeneratedKeys="true" keyProperty="id" >
-    insert into comment (newsId, commentContent, owerId, 
-      ower, created, isCheck, 
-      deleted, remark)
-    values (#{newsId,jdbcType=INTEGER}, #{commentContent,jdbcType=VARCHAR}, #{owerId,jdbcType=INTEGER}, 
-      #{ower,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, #{isCheck,jdbcType=TINYINT}, 
-      #{deleted,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
+    insert into comment (newsId, commentContent, owerId,
+    ower, created, isCheck,
+    deleted, remark)
+    values (#{newsId,jdbcType=INTEGER}, #{commentContent,jdbcType=VARCHAR}, #{owerId,jdbcType=INTEGER},
+    #{ower,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, #{isCheck,jdbcType=TINYINT},
+    #{deleted,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
   </insert>
 
   <update id="updateById" parameterType="java.lang.Integer"  >
@@ -78,10 +78,7 @@
   </update>
 
   <update id="deleteById" parameterType="java.lang.Integer"  >
-    update comment
-    set
-      isCheck = 1,
-      deleted = 1,
+    delete from comment
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

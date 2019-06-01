@@ -35,7 +35,7 @@
         <sqlMapGenerator targetPackage="mapper" targetProject="E:\IntelliJ IDEA\NewsReleaseSystem\src\main\resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
-        <!--生成dao类存放位置-->
+        <!--&lt;!&ndash;生成dao类存放位置&ndash;&gt;-->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.rong.dao" targetProject="E:\IntelliJ IDEA\NewsReleaseSystem\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

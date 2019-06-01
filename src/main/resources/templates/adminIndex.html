@@ -34,10 +34,10 @@
     <div id="search">
         <div id="search_left"><a href="#"><img src="../static/picture/login.png" th:src="@{/picture/login.png}" alt="新闻系统" height="46px" width="137px"></a></div>
         <div id="search_right">
-            <form id="search_right_2" action="" method="post" >
+            <form id="search_right_2" action="/search" method="post" >
                 <div class="input-append">
-                    <input type="text" class="span5" placeholder="请输入关键字">
-                    <button class="btn" type="button">搜索</button>
+                    <input type="text" class="span5" name="key" id="key" placeholder="请输入关键字">
+                    <button class="btn" type="submit" >搜索</button>
                 </div>
             </form>
         </div>

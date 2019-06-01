@@ -11,9 +11,9 @@ public interface CommentMapper {
 
     int insert(Comment record);
 
-    List<Comment> selectByOwerId(@Param("id") Integer id);
+    List<Comment> selectByOwerId(@Param("owerId") Integer owerId);
 
-    List<Comment> selectByNewsId(@Param("id") Integer id);
+    List<Comment> selectByNewsId(@Param("newsId") Integer newsId);
 
     int updateById(@Param("id") Integer id);
 

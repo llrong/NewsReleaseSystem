@@ -4,11 +4,8 @@ import com.rong.dao.NewsInfoMapper;
 import com.rong.web.pojo.NewsInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class NewsInfoService {
@@ -66,7 +63,10 @@ public class NewsInfoService {
     }
 
     public NewsInfo selectNewsById(Integer id){
-        return newsInfoMapper.selectNewsById(id);
+        return newsInfoMapper.selectByExampleWithBLOBs(id);
     }
+
+
+
 
 }

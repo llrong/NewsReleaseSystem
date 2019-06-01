@@ -86,15 +86,15 @@ function menu() {
 
 
 
-function guide(typeid)  {
-    var typeid = typeid.value;
-    console.info(typeid);
+function guide(name)  {
+    var key = document.getElementById("key").value;
+    console.info(key);
     $.ajax({
-        url: "/guide",
+        url: "/search",
         type: 'POST',
         dataType: 'json',
         data:{
-            typeid:typeid
+            key:key
         },
         success: function (result) {
             if (result == 1) {
@@ -108,3 +108,27 @@ function guide(typeid)  {
     });
 }
 
+
+// function search()  {
+//     var key = document.getElementById("key").value;
+//     console.info(key);
+//     $.ajax({
+//         url: "/search",
+//         type: 'POST',
+//         // dataType: 'json',
+//         data:{
+//             key:key
+//         },
+//         success: function (data) {
+//             console.info("ccc");
+//             // if (result == 1) {
+//             // }
+//         },
+//         error: function (XMLHttpRequest, textStatus, errorThrown,data) {
+//             console.log('XMLHttpRequest:');
+//             console.log(XMLHttpRequestUpload);
+//             console.log(textStatus);
+//             console.info(data);
+//         }
+//     });
+// }

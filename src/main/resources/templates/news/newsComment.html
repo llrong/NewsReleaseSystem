@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>新闻详情页</title>
     <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
-    <script type="text/javascript" src="../../static/js/addNews.js" th:src="@{/js/addNews.js}"></script>
+    <script type="text/javascript" src="../../static/js/comment.js" th:src="@{/js/comment.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/newsComment.css}" href="../../static/css/newsComment.css"/>
 
 </head>
@@ -13,18 +13,20 @@
 
 <div class="article-container">
     <div class="article_head">
-        <h1 class="title">标题标题标题标题</h1>
+        <h1 class="title" th:text="${newsinfo.title}"></h1>
         <div class="article_r">
-            <span class="pulisher">小白 发表</span>
-            <span class="time">  2015:10:10</span>
-            <span class="article_view" title="阅读"> 阅读(100)</span>
-            <span class="article_comments" title="评论"> <a href="#ping" onclick="">评论</a>(100)</span>
+            <span class="pulisher" th:text="${newsinfo.author}+'发表'"></span>
+            <span class="time" th:text="${newsinfo.created}">  2015:10:10</span>
+            <span class="article_view" title="阅读" th:text="'阅读'+${newsinfo.hits}"> </span>
+            <span class="article_comments" title="评论"> <a href="#ping" onclick="">评论</a></span>
         </div>
+        <hr/>
     </div>
-    <div class="article_content">
-        <p> 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容 话题内容</p>
-    </div>
-    <hr/>
+    <pre>
+        <div class="article_content"  th:text="${newsinfo.getContent()}" >
+        </div>
+    </pre>
+
     <!--<div class="ImgContent layer-photos-demo" id="layer-photos-demo" >-->
         <!--<img src="../static/picture/login.png">-->
     <!--</div>-->
@@ -34,24 +36,15 @@
     <h3 style="text-indent: 2em;">评论列表</h3>
     <hr>
     <div class="comment">
-        <div class="conmment_details">
+        <div class="conmment_details" th:each="com : ${comment}">
             <div style="float:left;">
-                <span class="comment_name">大白 </span>     <span>22分钟前</span>
+                <span class="comment_name" th:text="comment.ower">大白 </span>   <span th:text="comment.created">22分钟前</span>
             </div>
-            <div class="comment_content" >  感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒
+            <div class="comment_content"  th:text="comment.commentContent">  感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒
             </div>
         </div>
     </div>
     <hr>
-    <div class="comment">
-        <div class="conmment_details">
-            <div style="float:left;">
-                <span class="comment_name">大白 </span>     <span>22分钟前</span>
-            </div>
-        </div>
-        <div class="comment_content" >  感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒
-        </div>
-    </div>
 </div>
 <hr>
 <!--<div class="comment_add_or_last" >-->
@@ -61,14 +54,14 @@
 </div>
 <div  class="sumComment" align="center">
     <a name="ping"></a>
-    <input type="text" id="newstype"  placeholder="输入你的评论" size="50"> &nbsp;
-    <button  class="sub">发表</button>
+    <input type="text" id="yourcom"  placeholder="输入你的评论" size="50"> &nbsp;
+    <button  class="sub"  th:value="${newsinfo.id}" onclick="say(this)">发表</button>
 </div>
 
 </div>
 
 </body>
-<script type="text/javascript" src="common/layui/layui.js"></script>
+<!--<script type="text/javascript" src="common/layui/layui.js"></script>-->
 <!--<script type="text/javascript">-->
 <!--layui.use(['form','layer','jquery','element','laypage','form'],function(){-->
 <!--var form = layui.form();-->

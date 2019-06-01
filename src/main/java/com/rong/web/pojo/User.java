@@ -1,8 +1,6 @@
 package com.rong.web.pojo;
 
-import java.io.Serializable;
-
-public class User implements Serializable{
+public class User {
     private Integer id;
 
     private String userName;

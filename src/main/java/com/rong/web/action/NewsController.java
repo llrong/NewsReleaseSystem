@@ -1,8 +1,10 @@
 package com.rong.web.action;
 
+import com.rong.service.CommentService;
 import com.rong.service.NewsInfoService;
 import com.rong.service.NewsTypeService;
 import com.rong.utils.DateTimeUtils;
+import com.rong.web.pojo.Comment;
 import com.rong.web.pojo.NewsInfo;
 import com.rong.web.pojo.NewsType;
 import com.rong.web.pojo.User;
@@ -26,6 +28,9 @@ public class NewsController
 
     @Autowired
     private NewsTypeService newsTypeService;
+
+    @Autowired
+    private CommentService commentService;
 
 
 
@@ -98,6 +103,18 @@ public class NewsController
         NewsInfo newsInfo = newsInfoService.selectNewsById(id);
         model.addAttribute("news",newsInfo);
         return  "news/NewsInfo";
+    }
+
+
+    @RequestMapping(value = "/getnews")
+    public  String getNewsAnaCom(HttpServletRequest request,Model model) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        NewsInfo newsInfo = newsInfoService.selectNewsById(id);
+//        String content =newsInfo.getContent().replaceAll(" ","&nbsp;&nbsp;").replaceAll("\r","<br/>");
+        List<Comment> list = commentService.selectByNewsId(id);
+        model.addAttribute("newsinfo",newsInfo);
+        model.addAttribute("comment",list);
+        return  "news/newsComment";
     }
 
 

@@ -44,7 +44,7 @@
     order by id
   </select>
   <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from newstype
     where typeName = #{typeName,jdbcType=VARCHAR}
