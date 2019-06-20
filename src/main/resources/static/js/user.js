@@ -56,6 +56,7 @@ function setadmin(id) {
                     alert("设置失败！");
 
                 }
+                window.location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log('XMLHttpRequest:');
@@ -80,11 +81,11 @@ function del(id) {
         success: function (result) {
             if (result == 1) {
                 alert("删除此用户成功！");
-                window.location.href="/queryUser";
             }
             else {
                 alert("删除失败！");
             }
+            window.location.reload();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log('XMLHttpRequest:');
@@ -126,6 +127,7 @@ function sure(id) {
                 else {
                     alert("修改密码失败！");
                 }
+                window.location.reload();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log('XMLHttpRequest:');

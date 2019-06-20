@@ -14,13 +14,15 @@ public interface UserMapper {
 
     User selectByEmail(@Param("email") String email);
 
-    List<User> selectAllUsers();
+    List<User> selectUsers();
+
+    List<User> selectAdmin();
 
     User selectById(@Param("id") Integer id);
 
-    int updateById(@Param("id") Integer id,@Param("userName") String userName,@Param("remark") String remark);
+    int updateById(@Param("id") Integer id, @Param("userName") String userName, @Param("remark") String remark);
 
-    int updatePassById(@Param("id") Integer id,@Param("password") String password);
+    int updatePassById(@Param("id") Integer id, @Param("password") String password);
 
     int setAdmin(@Param("id") Integer id);
 }

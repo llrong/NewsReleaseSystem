@@ -9,23 +9,25 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/newsComment.css}" href="../../static/css/newsComment.css"/>
 
 </head>
-<body>
-
-<div class="article-container">
+<br class="article-container">
     <div class="article_head">
         <h1 class="title" th:text="${newsinfo.title}"></h1>
+        <hr>
         <div class="article_r">
-            <span class="pulisher" th:text="${newsinfo.author}+'发表'"></span>
-            <span class="time" th:text="${newsinfo.created}">  2015:10:10</span>
+            <span class="pulisher" th:text="'作者：'+${newsinfo.author}"></span>
+            <span class="time" th:text="'发表于'+${newsinfo.created}"></span>
             <span class="article_view" title="阅读" th:text="'阅读'+${newsinfo.hits}"> </span>
             <span class="article_comments" title="评论"> <a href="#ping" onclick="">评论</a></span>
         </div>
-        <hr/>
+        <br/>
+        <br/>
+        <p th:align='center'><img th:src="${newsinfo.picture}"></p>
+        <pre><div th:align="center" th:text="${newsinfo.content}"></div></pre>
     </div>
-    <pre>
-        <div class="article_content"  th:text="${newsinfo.getContent()}" >
-        </div>
-    </pre>
+
+
+
+
 
     <!--<div class="ImgContent layer-photos-demo" id="layer-photos-demo" >-->
         <!--<img src="../static/picture/login.png">-->
@@ -34,19 +36,16 @@
 <hr>
 <div class="comment_list">
     <h3 style="text-indent: 2em;">评论列表</h3>
-    <hr>
     <div class="comment">
-        <div class="conmment_details" th:each="com : ${comment}">
-            <div style="float:left;">
-                <span class="comment_name" th:text="comment.ower">大白 </span>   <span th:text="comment.created">22分钟前</span>
-            </div>
-            <div class="comment_content"  th:text="comment.commentContent">  感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒感觉林丹越来越帅了，好棒
-            </div>
-        </div>
+        <ul th:each="com : ${coms}"  >
+            <li>
+                <div><span  th:text="${com.ower}"  ></span>
+                    <span th:text="${com.created}"></span></div>
+                <div   th:text="${com.content}" ></div>
+            </li>
+        </ul>
     </div>
-    <hr>
 </div>
-<hr>
 <!--<div class="comment_add_or_last" >-->
 <!--点击加载更多评论-->
 <!--</div>-->
@@ -57,6 +56,7 @@
     <input type="text" id="yourcom"  placeholder="输入你的评论" size="50"> &nbsp;
     <button  class="sub"  th:value="${newsinfo.id}" onclick="say(this)">发表</button>
 </div>
+</hr>
 
 </div>
 

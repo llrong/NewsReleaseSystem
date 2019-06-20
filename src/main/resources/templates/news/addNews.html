@@ -13,28 +13,33 @@
 
 </head>
 <body onload="getTypes()">
-<div class="mes-send" >
+<form class="mes-send" action="/news/addNews" method="post" enctype="multipart/form-data">
     <h3>发 布 新 闻</h3></br>
         <div class="form-group">
             <label >标题：</label>
-            <input type="text" id="title"  placeholder="新闻标题" size="50">
+            <input type="text" id="title"  name="title" placeholder="新闻标题" size="50">
         </div>
         <div class="form-group">
             <label >摘要：</label>
-            <input type="text" id="digest" placeholder="新闻摘要,可以为空">
+            <input type="text" id="digest" name="digest"placeholder="新闻摘要,可以为空">
         </div>
         <div class="form-group">
             <label >新闻类别：</label>
-            <select id="type" class="select2" ></select>
+            <select id="type" name="type"class="select2" ></select>
         </div>
 
         <div class="form-group">
             <label >内容：</label>
-            <textarea id="content"  rows="25" cols="70"></textarea>
+            <textarea id="content"  name="content"rows="25" cols="70"></textarea>
         </div>
-        <button onclick="tijiao()" id="tijiao">提交</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <label>上传图片：</label>
+            <input type="file" name="file"/>
+        </div>
+    <!--onclick="tijiao()"-->
+        <button  type="submit" id="tijiao">提交</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button type="reset">重置</button>
 
-</div>
+</form>
 </body>
 </html>

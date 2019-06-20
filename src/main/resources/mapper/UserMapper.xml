@@ -33,13 +33,19 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectAllUsers" resultMap="BaseResultMap" >
+  <select id="selectUsers" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from user
+    WHERE jusis = 1
   </select>
 
-
+  <select id="selectAdmin" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    WHERE jusis = 2
+  </select>
   <delete id="deleteById" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}

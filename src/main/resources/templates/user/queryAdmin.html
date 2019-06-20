@@ -5,11 +5,10 @@
     <title>用户查询</title>
     <script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
     <script type="text/javascript"  src="../static/js/user.js" th:src="@{/js/user.js}"></script>
-    <script src="../../static/js/judge.js" th:src="@{/js/judge.js}"></script>
     <!--<script type="text/javascript" src="../static/js/queryNews.js" th:src="@{/js/queryNews.js}"></script>-->
 </head>
-<body onload="adminjudge()">
-<h3  align="center" th:align="center"> 普通用户列表</h3>
+<body>
+<h3 align="center" th:align="center"> 普通管理员列表</h3>
 <table border="3"  align="center"  th:align="center" >
     <tr>
         <th>用户id</th>
@@ -31,13 +30,3 @@
 </table>
 </body>
 </html>
-<script>
-    function adminjudge(){
-        var num = document.getElementById("num").innerText;
-        console.info(num);
-        if(num != 3  ){
-            document.getElementById("setadmin").style.display = 'none';
-
-        }
-    }
-</script>

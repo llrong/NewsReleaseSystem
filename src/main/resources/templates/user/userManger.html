@@ -10,7 +10,7 @@
     <script src="../../static/js/judge.js" th:src="@{/js/judge.js}"></script>
 </head>
 
-<body >
+<body onload="userjudge()">
 <!--顶部信息区-->
 <header role="header">
     <div>
@@ -40,10 +40,21 @@
             <ul>
                 <li><strong>导航列表</strong></li>
                 <li><a href="addUser.html" th:href="@{addUser}" class="active" target="main">添加用户</a></li>
-                <li><a href="queryUser.html" th:href="@{/user/queryUsers}" target="main">用户管理</a></li>
+                <li><a href="queryUser.html" th:href="@{/user/queryUsers}" target="main">普通用户管理</a></li>
+                <li><a href="queryAdmin.html" th:href="@{/user/queryAdmin}" id="admin" target="main">普通管理员管理</a></li>
             </ul>
         </nav>
     </aside>
 </main>
 </body>
 </html>
+<script>
+    function userjudge(){
+        var num = document.getElementById("num").innerText;
+        console.info(num);
+        if(num != 3  ){
+            document.getElementById("admin").style.display = 'none';
+
+        }
+    }
+</script>

@@ -50,6 +50,10 @@ div {
 #navigate {
     height: 45px;
 }
+
+#navigate>ul>li>:hover{
+    border-bottom: 3px solid #336699;
+}
 #navigate a, #navigate a:visited {
     line-height: 40px;
     color: black;
@@ -59,6 +63,7 @@ div {
     float: left;
     text-decoration: none;
     padding: 0 7px 0 6px;
+
 }
 #navigate a:hover, #navigate a.selected {
     border-bottom: 3px solid #336699;

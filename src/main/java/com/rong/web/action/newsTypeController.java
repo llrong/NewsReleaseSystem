@@ -1,7 +1,9 @@
 package com.rong.web.action;
 
 
+import com.rong.service.NewsInfoService;
 import com.rong.service.NewsTypeService;
+import com.rong.web.pojo.NewsInfo;
 import com.rong.web.pojo.NewsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +29,9 @@ public class newsTypeController {
     @Autowired
     private NewsTypeService newsTypeService;
 
+
+    @Autowired
+    private NewsInfoService newsInfoService;
 
     @RequestMapping(value = "/addNewsType",method = RequestMethod.POST)
     @ResponseBody
@@ -50,12 +58,30 @@ public class newsTypeController {
         return "newstype/queryNewsType";
     }
 
-    @RequestMapping(value = "/deleted/{id}",method = RequestMethod.POST)
+//    @RequestMapping(value = "/deleted")
+//    public String  delete(HttpServletRequest request, HttpServletResponse response)throws IOException {
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        response.setContentType("text/html;charset=utf-8");
+//        PrintWriter printWriter = response.getWriter();
+//        int result  = newsTypeService.deleteById(id);
+//        if(result == 1){
+//            printWriter.println("<script language='javascript'>alert('删除成功！');</script>");
+//        }
+//        return "newstype/queryNewsType";
+//    }
+
+    @RequestMapping(value = "/deleted",method = RequestMethod.POST)
     @ResponseBody
-    public int  delete(@PathVariable Integer id, HttpServletRequest request) {
-      int result ;
-      result = newsTypeService.deleteById(id);
-      return  result;
+    public int  deleteNews(HttpServletRequest request) {
+        int result;
+        if(request.getParameter("typeid")== null){
+            result = 0;
+        }else{
+            int id = Integer.parseInt(request.getParameter("typeid"));
+            newsInfoService.deleteByTypeId(id);
+            result = newsTypeService.deleteById(id);
+        }
+        return  result;
     }
 
 

@@ -5,10 +5,7 @@ import com.rong.web.pojo.NewsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class NewsTypeService {
@@ -26,6 +23,9 @@ public class NewsTypeService {
 
     public NewsType selectByName(String typeName){
         return newsTypeMapper.selectByName(typeName);
+    }
+    public NewsType selectById(Integer id){
+        return newsTypeMapper.selectById(id);
     }
 
     public List<NewsType> selectAllnewsTypes(){

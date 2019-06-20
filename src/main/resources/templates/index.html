@@ -43,7 +43,6 @@
         <a href="#" class="selected">首页</a>
         <div th:each="t : ${type}">
             <a th:text="${t.getTypeName()}"  th:href="@{'guide?id='+${t.id}}"></a>
-
         </div>
     </div>
         <div id="recommend">
@@ -62,18 +61,17 @@
             </div>
             <div id="recommend_right">
                 <div id="recommend_right_1" >
-                    <img src="../static/picture/quan.jpg" th:src="@{/picture/quan.jpg}"  width="560" height="400"/>
-                    <p>中国拳手徐灿TKO日本拳手 成功卫冕世界拳王金腰带</p>
+                    <img src="../static/picture/quan.jpg" th:src="${pic.picture}"  width="560" height="400"/>
+                    <p ><a th:text="${pic.getTitle()}"  th:href="@{'/news/getnews/?id='+${pic.id}}"></a></p>
                 </div>
                 <div id="recommend_right_2">
                     <div class="recommend_right_2_bt">滚动新闻</div>
                     <div class="recommend_right_2_m">
                         <!--<marquee scrollamount="2">|暴雨袭击藤县局部受灾|挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立 |岑溪工商开展儿童用品市场专项整治见成效|</marquee>-->
-                        <marquee scrollamount="2"  >
                             <marquee scrollamount="2">
                                 <a th:text="${cir.getTitle()}"   th:href="@{'/news/getnews/?id='+${cir.id}}"></a>&nbsp;|&nbsp;
-                                <a th:text="${circle.getTitle()}"   th:href="@{'/news/getnews/?id='+${circle.id}}"></a></marquee>
-                        </marquee>
+                                <a th:text="${circle.getTitle()}"   th:href="@{'/news/getnews/?id='+${circle.id}}"></a>
+                            </marquee>
                     </div>
                 </div>
             </div>

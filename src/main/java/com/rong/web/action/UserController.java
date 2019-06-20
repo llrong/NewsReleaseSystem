@@ -1,6 +1,7 @@
 package com.rong.web.action;
 
 
+import com.rong.service.AccessService;
 import com.rong.service.UserService;
 import com.rong.web.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccessService accessService;
+
     @RequestMapping("/myinfo")
     public String myinfo(HttpServletRequest request,Model model){
         User user = (User)request.getSession().getAttribute("user");
-        String admin = user.getJusis()==0 ? "普通用户":"管理员";
+        String admin = accessService.selectByid(user.getJusis()).getAccessName();
         String bei="";
         if(user.getRemark()==null || user.getRemark().equals("")){
             bei = "当前无备注";
@@ -86,6 +90,12 @@ public class UserController {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String admin = request.getParameter("admin");
+        int ad = 1;
+        if(admin == null){
+            ad = 1;
+        }else{
+            ad = admin.equals("是") ? 2 :1;
+        }
 
         int result;
 
@@ -98,9 +108,7 @@ public class UserController {
             user.setUserName(userName);
             user.setPassword(password);
             user.setEmail(email);
-
-            int jusis = admin.equals("是") ? 1 :0;
-            user.setJusis(jusis);
+            user.setJusis(ad);
 
             result = userService.insertUser(user);
         }
@@ -110,10 +118,17 @@ public class UserController {
 
 
     @RequestMapping("/queryUsers")
-    public String queryAllUsers(Model model) {
-        List<User> list = userService.selectAllUsers();
+    public String queryUsers(Model model) {
+        List<User> list = userService.selectUsers();
         model.addAttribute("list", list);
         return "user/queryUser";
+    }
+
+    @RequestMapping("/queryAdmin")
+    public String queryAdmin(Model model) {
+        List<User> list = userService.selectAdmin();
+        model.addAttribute("list", list);
+        return "user/queryAdmin";
     }
 
 

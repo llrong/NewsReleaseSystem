@@ -8,8 +8,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/addNews.css}" href="../../static/css/addNews.css"/>
     <script type="text/javascript" src="../../static/js/user.js" th:src="@{/js/user.js}"></script>
 </head>
-<body>
+<body onload="judge()">
 <div class="mes-send" >
+    <span id="num" style="display: none"  th:text="${num}"></span>
     <h3>添 加 用 户</h3>
     <br class="form-group">
         <label >用户名称：</label>
@@ -18,7 +19,7 @@
         <input type="text" id="password"  placeholder="输入密码" size="50"></br></br>
         <label >邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</label>
         <input type="text" id="email"  placeholder="输入邮箱" size="50"></br></br>
-        <label >是否为管理员:</label>
+        <label id="ad">是否为管理员:</label>
         <select id="admin" class="select2" >
             <option value="否">否</option>
             <option value="是">是</option>
@@ -27,11 +28,16 @@
     <button onclick="add(this)" id="tijiao">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <button  type="reset"  >重置</button>
     </div>
-
-
 </div>
-
-
-
 </body>
 </html>
+<script>
+    function judge(){
+        var num = document.getElementById("num").innerText;
+        console.info(num);
+        if(num != 3  ){
+            document.getElementById("admin").style.display = 'none';
+            document.getElementById("ad").style.display = 'none';
+        }
+    }
+</script>

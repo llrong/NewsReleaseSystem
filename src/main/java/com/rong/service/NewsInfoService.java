@@ -13,6 +13,14 @@ public class NewsInfoService {
     @Autowired
     private NewsInfoMapper newsInfoMapper;
 
+    public  NewsInfo selectNewPicture(){
+        return  newsInfoMapper.selectNewPicture();
+    }
+
+    public List<NewsInfo> selectUncheckNews(String remark){
+        return  newsInfoMapper.selectUnCheckNews(remark);
+    }
+
     public int insertNews(NewsInfo newsInfo){
         return newsInfoMapper.insert(newsInfo);
     }
@@ -43,6 +51,15 @@ public class NewsInfoService {
         return list;
     }
 
+    public void  deleteByTypeId(Integer typeId){
+       newsInfoMapper.deleteByTypeId(typeId);
+    }
+
+    public List<NewsInfo> selectguideNews(Integer typeId){
+        List<NewsInfo>  list = newsInfoMapper.selectguideNews(typeId);
+        return list;
+    }
+
     public NewsInfo selectCirNews(){
         return newsInfoMapper.selectCirNews();
 
@@ -64,6 +81,10 @@ public class NewsInfoService {
 
     public NewsInfo selectNewsById(Integer id){
         return newsInfoMapper.selectByExampleWithBLOBs(id);
+    }
+
+    public int addHits(Integer id){
+        return  newsInfoMapper.addHits(id);
     }
 
 

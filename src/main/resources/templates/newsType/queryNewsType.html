@@ -45,7 +45,8 @@
     <tr th:each="newstype : ${list}">
         <td class="typeid" th:text="${newstype.getId()}"></td>
         <td th:text="${newstype.getTypeName()}"></td>
-        <td><button  class="delete" onclick="del(this)" th:value="${newstype.getId()}">删除</button>
+        <td>
+            <button  class="delete" id="delete" onclick="del(this)" th:value="${newstype.getId()}">删除</button>
             <button onclick="show(this)" id="edit" th:value="${newstype.getId()}">修改</button>
             <button type="button"  id="sumbit" onclick="sumbit(this)"  th:value="${newstype.getId()}">确定修改</button></td>
         </td>

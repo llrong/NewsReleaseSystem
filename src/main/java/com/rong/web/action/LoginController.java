@@ -35,6 +35,13 @@ public class LoginController {
             result = 2;    //用户名不存在
         } else if(password.equals(user.getPassword()) && email.equals(user.getEmail())){   //数据库中查询到的密码跟前端获取到的对比
             request.getSession().setAttribute("user",user);
+            if(user.getJusis() == 1){
+                request.getSession().setAttribute("access","欢迎您，用户："+user.getUserName());
+            }else if(user.getJusis() == 2){
+                request.getSession().setAttribute("access","欢迎您，管理员："+user.getUserName());
+            }else{
+                request.getSession().setAttribute("access","欢迎您，超级管理员："+user.getUserName());
+            }
             result = 1;     //相等的话返回值1  登录成功
         }else{
             result = 3;  //用户名或者密码错误
@@ -61,7 +68,7 @@ public class LoginController {
             newuser.setUserName(userName);
             newuser.setEmail(email);
             newuser.setPassword(password);
-            newuser.setJusis(0);
+            newuser.setJusis(1);
             userService.insertUser(newuser);
             result = 1;  //成功注册
         }

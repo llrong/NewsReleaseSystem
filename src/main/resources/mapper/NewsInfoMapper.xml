@@ -291,14 +291,21 @@
     select
     <include refid="Base_Column_List" />
     from newsinfo
-    where deleted = 0
+    where isCheck = 1 and deleted = 0
+  </select>
+
+  <select id="selectUnCheckNews" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    where remark = #{remark,jdbcType=VARCHAR} and isCheck = 0
   </select>
 
   <select id="selectMyNews" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from newsinfo
-    where remark = #{remark,jdbcType=VARCHAR}
+    where remark = #{remark,jdbcType=VARCHAR} and  isCheck = 1
     order by created
   </select>
 
@@ -306,14 +313,29 @@
     select
     <include refid="Base_Column_List" />
     from newsinfo
-    where typeId = #{typeId,jdbcType=INTEGER}
+    where typeId = #{typeId,jdbcType=INTEGER} and  isCheck = 1
     order by created  limit 10
+  </select>
+
+  <select id="deleteByTypeId" parameterType="java.lang.Integer" >
+   update newsinfo
+   SET  deleted = 1
+    where typeId = #{typeId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectguideNews" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    where typeId = #{typeId,jdbcType=INTEGER} and  isCheck = 1
+    order by hits desc limit 4
   </select>
 
   <select id="selectHotNews" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from newsinfo
+    where isCheck = 1 and deleted = 0
     order by hits desc limit 9
   </select>
 
@@ -323,6 +345,7 @@
     select
     <include refid="Base_Column_List" />
     from newsinfo
+    where isCheck = 1 and deleted = 0
     order by created desc limit 4
   </select>
 
@@ -330,14 +353,23 @@
     select
     <include refid="Base_Column_List" />
     from newsinfo
+    where isCheck = 1 and deleted = 0
     order by created  limit 1
   </select>
 
+  <select id="selectNewPicture" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from newsinfo
+    where picture is not null and  isCheck = 1 and deleted = 0
+    order by created DESC limit 1
+  </select>
 
   <select id="selectCircleNews" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from newsinfo
+    where isCheck = 1 and deleted = 0
     order by typeId DESC limit 1
   </select>
 
@@ -377,4 +409,11 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <update id="addHits" parameterType="java.lang.Integer">
+    update newsinfo
+    <set>
+      hits = hits + 1
+    </set>
+    where id = #{id,jdbcType=TINYINT}
+  </update>
 </mapper>

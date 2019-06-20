@@ -14,6 +14,8 @@ public interface NewsTypeMapper {
 
     NewsType selectByName(@Param("typeName") String typeName);
 
+    NewsType selectById(@Param("id") Integer id);
+
     List<NewsType> selectAllNewsType();
 
     int updateById(NewsType newsType);

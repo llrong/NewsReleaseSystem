@@ -44,8 +44,9 @@
                 <li><a href="myinfo.html"  th:href="@{/user/myinfo}" class="active" target="main">个人信息</a></li>
                 <li><a href="updateInfo.html" th:href="@{'/user/updateInfo?id='+${id}}" target="main">修改个人信息</a></li>
                 <li><a href="updatePass.html" th:href="@{'/user/updatePass?id='+${id}}" target="main">修改密码</a></li>
-                <li  id="mynews"><a href="../news/queryMyNews"  th:href="@{/news/queryMyNews}" target="main">我发表的新闻</a></li>
                 <li><a href="../Comment/queryMyComment.html"  th:href="@{comment/queryMyComment}" target="main">我发表的评论</a></li>
+                <li  id="mynews"><a href="../news/queryMyNews"  th:href="@{/news/queryMyNews}" target="main">我发表的新闻</a></li>
+                <!--<li  id="uncheck"><a href="../news/queryUncheck"  th:href="@{/news/queryUncheck}" target="main">草稿箱</a></li>-->
             </ul>
         </nav>
     </aside>

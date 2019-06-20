@@ -3,21 +3,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>用户管理</title>
+    <title>新闻信息</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../../static/css/index.css" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" href="../../static/css/menu.css" />
     <script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 </head>
 <body>
 <div align="center">
-    <h1 th:text="${news.getTitle()}"></h1>
-    <p><b th:text="${news.getAuthor()}"></b></p>
+    <h1 th:text="${news.title}"></h1>
+    <p><b th:text="${news.author}"></b> 发表时间：<b th:text="${news.created}"></b></p>
     <br/>
     <br/>
     <!--图片-->
-    <p align='center'><img src=""></p>
-    <p th:text="${news.getDigest()}"></p>
-    <div th:text="${news.getContent()}">
+    <p th:text="${news.digest}"></p>
+    <p align='center'><img th:src="${news.picture}"></p>
+    <div th:text="${news.content}">
 
     </div>
 </div>

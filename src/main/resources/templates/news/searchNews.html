@@ -12,17 +12,17 @@
 </head>
 <body>
 <div class="container">
-    <h1>搜索结果如下</h1>
-    <h4></h4>
+    <h1 th:align="center">搜索结果如下</h1>
 
-    <div class="news-list">
+    <div class="news-list" th:align="center">
             <div class="news-list-item" th:each="res : ${result}">
-                <!--<div class="author-time">-->
-                    <!--<span  th:text="${res.author}">慕女神</span> 发表于 <span  th:text="${res.created}">2014-07-20 18:07:10</span>-->
-                <!--</div>-->
+                <div class="author-time">
+                    <span  th:text="${res.author}"></span> 发表于 <span  th:text="${res.created}"></span>
+                </div>
                 <div class="news-des">
                     <h3 class="news-title"><i></i><a th:href="@{'news/getnews/?id='+${res.id}}" th:text="${res.title}"></a></h3>
                 </div>
+                <hr>
             </div>
     </div>
 </div>

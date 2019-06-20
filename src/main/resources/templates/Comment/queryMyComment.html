@@ -14,10 +14,10 @@
         <th>创造时间</th>
         <th >操作</th>
     </tr>
-    <tr th:each="com : ${list}">
-        <td th:text="${com.commentContent}"></td>
-        <td th:text="${com.getCreated()}"></td>
-        <td><button  class="delete" onclick="del(this)" th:value="${com.getId()}">删除</button>
+    <tr th:each="map : ${result}">
+        <td th:text="${map.content}"></td>
+        <td th:text="${map.created}"></td>
+        <td><button  class="delete" onclick="del(this)" th:value="${map.id}">删除</button>
         </td>
     </tr>
 </table>

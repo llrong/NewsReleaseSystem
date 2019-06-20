@@ -42,42 +42,34 @@
     </div>
     <div id="navigate">
         <a href="#" class="selected">首页</a>
-        <div th:each="t : ${type}">
-            <a th:text="${t.getTypeName()}"  th:href="@{'guide?id='+${t.id}}"></a>
+        <div th:each="type : ${type}">
+            <a  th:text="${type.getTypeName()}" th:value="${type.getId()}" onclick="guide(this)"></a>
         </div>
     </div>
     <div id="recommend">
-        <div id="recommend_left">
-            <div id="recommend_left_1" >
-                <ul th:each="hot : ${hot}">
-                    <li > <p ><a th:text="${hot.getTitle()}" th:href="@{'news/getnews/?id='+${hot.id}}"></a></p></li>
-                </ul>
-            </div>
-            <div id="recommend_left_2">
-                <p class="recommend_left_2_bt"  >消息称高层正起草7大领域改革方案 涉户籍制度 </p>
-                <ul  th:each="curr : ${curr}">
-                    <li ><a  th:text="${curr.getTitle()}"  th:href="@{'/news/getnews/?id='+${curr.id}}"></a> </li>
-                </ul>
-            </div>
+        <div class="content">
+            <ul  th:each="nn : ${news}">
+                <li class="news_1">
+                    <a  th:href="@{'/news/getnews/?id='+${nn.id}}">
+                        <h3 th:text="${nn.getTitle()}"></h3>
+                    </a>
+                </li></br></br></br></br>
+            </ul>
+        </div>
         </div>
         <div id="recommend_right">
-            <div id="recommend_right_1" >
-                <img src="../static/picture/quan.jpg" th:src="${pic.picture}"  width="560" height="400"/>
-                <p ><a th:text="${pic.getTitle()}"  th:href="@{'/news/getnews/?id='+${pic.id}}"></a></p>
-            </div>
-
-            <div id="recommend_right_2">
-                <div class="recommend_right_2_bt">滚动新闻</div>
-                <div class="recommend_right_2_m">
-                    <!--<marquee scrollamount="2">|暴雨袭击藤县局部受灾|挖掘传承传统技艺 藤县水上民歌传承基地挂牌成立 |岑溪工商开展儿童用品市场专项整治见成效|</marquee>-->
-                        <marquee scrollamount="2">
-                            <a th:text="${cir.getTitle()}"   th:href="@{'/news/getnews/?id='+${cir.id}}"></a>&nbsp;|&nbsp;
-                            <a th:text="${circle.getTitle()}"   th:href="@{'/news/getnews/?id='+${circle.id}}"></a>
-                        </marquee>
-
+            <aside>
+                <div class="hot_news" >
+                    <h4>精彩资讯</h4>
+                    <ul th:each="hot : ${hots}">
+                        <li>
+                            <h5> <a th:href="@{'/news/getnews/?id='+${hot.id}}" th:text="${hot.getTitle()}"></a></h5>
+                        </li>
+                    </ul>
                 </div>
-            </div>
+            </aside>
         </div>
+
     </div>
     <div id="technology"></div>
     <div id="relevant"></div>
@@ -85,5 +77,4 @@
 </div>
 </body>
 </html>
-
 

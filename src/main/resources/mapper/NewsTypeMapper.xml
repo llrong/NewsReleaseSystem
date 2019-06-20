@@ -49,6 +49,12 @@
     from newstype
     where typeName = #{typeName,jdbcType=VARCHAR}
   </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from newstype
+    where id = #{id,jdbcType=INTEGER}
+  </select>
   <delete id="deleteById" parameterType="java.lang.Integer"  >
     delete from newstype
     where id = #{id,jdbcType=INTEGER}

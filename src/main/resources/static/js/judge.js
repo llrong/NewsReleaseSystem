@@ -21,23 +21,40 @@
 function menujudge(){
     var num = document.getElementById("num").innerText;
     console.info(num);
-       if(num == 0){
+       if(num == 1){
             document.getElementById("mynews").style.display = 'none';
             document.getElementById("typemanger").style.display = 'none';
             document.getElementById("newsmanger").style.display = 'none';
             document.getElementById("usermanger").style.display = 'none';
+           document.getElementById("uncheck").style.display = 'none';
         }
-
-
 }
 
+
+function userjudge(){
+    var num = document.getElementById("num").innerText;
+    console.info(num);
+    if(num != 3  ){
+        document.getElementById("admin").style.display = 'none';
+
+    }
+}
+
+function adminjudge(){
+    var num = document.getElementById("num").innerText;
+    console.info(num);
+    if(num != 3  ){
+        document.getElementById("setadmin").style.display = 'none';
+
+    }
+}
 function out() {
         $.ajax({
             url: "/first/logout",
             type: 'get',
             success: function (result) {
                 if (result == 1) {
-                    confirm("登出成功！");
+                   alert("登出成功！");
                     window.location.href = '/index';
                 }
             },

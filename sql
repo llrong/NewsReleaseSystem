@@ -1,9 +1,5 @@
 create database graduation;
-建库
-
-
 use  graduation;
-use graduation;
 drop table if exists User;
 create table User(
 	id int(11)  PRIMARY KEY auto_increment,

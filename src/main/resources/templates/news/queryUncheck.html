@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>查询我的新闻</title>
+    <title>草稿箱</title>
     <script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
     <script type="text/javascript" src="../static/js/queryNews.js" th:src="@{/js/queryNews.js}"></script>
 </head>
@@ -13,7 +13,6 @@
         <th>新闻标题</th>
         <th>新闻类型</th>
         <th>创造时间</th>
-        <th>点击率</th>
         <th>操作</th>
 
     </tr>
@@ -21,10 +20,9 @@
         <td ><a  th:text="${map.title}"></a></td>
         <td th:text="${map.type}"></td>
         <td th:text="${map.created}"></td>
-        <td th:text="${map.hits}"></td>
-        <th><a  th:value="${map.id}" href="NewsInfo.html" th:href="@{'/news/check?id='+${map.id}}">查看</a>
-            <a  th:value="${map.id}" href="NewsInfo.html" th:href="@{'/news/updated?id='+${map.id}}">修改</a>
+        <th>
             <button  class="delete" onclick="del(this)" th:value="${map.id}">删除</button>
+            <a  th:value="${map.id}" href="NewsInfo.html" th:href="@{'/news/updated?id='+${map.id}}">修改</a>
         </th>
     </tr>
 </table>

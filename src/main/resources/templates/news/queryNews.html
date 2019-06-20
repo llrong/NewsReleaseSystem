@@ -17,14 +17,14 @@
         <th>创造时间</th>
         <th >操作</th>
     </tr>
-    <tr th:each="newsinfo : ${list}">
-        <td th:text="${newsinfo.id}"></td>
-        <td th:text="${newsinfo.getTitle()}"></td>
-        <td th:text="${newsinfo.getAuthor()}"></td>
-        <td th:text="${newsinfo.getTypeId()}"></td>
-        <td th:text="${newsinfo.getCreated()}"></td>
-        <td><a  th:value="${newsinfo.getId()}" href="NewsInfo.html" th:href="@{'/news/check?id='+${newsinfo.id}}">查看</a> &nbsp;&nbsp;
-            <button  class="delete" onclick="del(this)" th:value="${newsinfo.id}">删除</button>
+    <tr th:each="map : ${result}">
+        <td ><a  th:text="${map.id}"></a></td>
+        <td th:text="${map.title}"></td>
+        <td th:text="${map.author}"></td>
+        <td th:text="${map.type}"></td>
+        <td th:text="${map.created}"></td>
+        <td><a  th:value="${map.id}" href="NewsInfo.html" th:href="@{'/news/check?id='+${map.id}}">查看</a> &nbsp;&nbsp;
+            <button  class="delete" onclick="del(this)" th:value="${map.id}">删除</button>
         </td>
     </tr>
 </table>
@@ -63,7 +63,7 @@
                 'dataType': 'json',
                 success: function (data) {
                     window.location.reload(true);
-                }
+                },
                 cancel: function (button) {
                     // nothing to do
                 }

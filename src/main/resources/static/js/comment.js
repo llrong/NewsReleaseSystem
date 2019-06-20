@@ -3,10 +3,7 @@ function say(nid)  {
     var yourcom = document.getElementById("yourcom").value;
     console.info(yourcom);
     console.info(id);
-    if(yourcom == ""){
-        alert("评论内容为空！")
-    }
-    $.ajax({
+        $.ajax({
         url: "/comment/add",
         type: 'POST',
         dataType: 'json',
@@ -17,9 +14,12 @@ function say(nid)  {
         success: function (result) {
             if (result == 1) {
                 alert("发表成功！")
-            }else{
+            }else if(result == 1){
+                alert("评论内容为空！")
+            } else{
                 alert("您尚未登录！")
             }
+            window.location.reload();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log('XMLHttpRequest:');
@@ -45,6 +45,7 @@ function del(id) {
             }else{
                 alert("删除评论失败！");
             }
+            window.location.reload();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log('XMLHttpRequest:');

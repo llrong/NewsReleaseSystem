@@ -30,8 +30,13 @@ public class UserService {
     }
 
 
-    public List<User> selectAllUsers(){
-        List<User>  list = userMapper.selectAllUsers();
+    public List<User> selectUsers(){
+        List<User>  list = userMapper.selectUsers();
+        return list;
+    }
+
+    public List<User> selectAdmin(){
+        List<User>  list = userMapper.selectAdmin();
         return list;
     }
 

@@ -23,6 +23,8 @@ public interface NewsInfoMapper {
 
     int updateByPrimaryKeyWithBLOBs(NewsInfo record);
 
+
+
     int updateByPrimaryKey(NewsInfo record);
 
     int deleteById(@Param("id") Integer id);
@@ -31,11 +33,17 @@ public interface NewsInfoMapper {
 
     List<NewsInfo> selectAllNews();
 
-    List<NewsInfo> selectByTypeId(@Param("typeId")Integer typeId);
+    List<NewsInfo> selectUnCheckNews(@Param("remark") String remark);
+
+    List<NewsInfo> selectByTypeId(@Param("typeId") Integer typeId);
+
+    void  deleteByTypeId(@Param("typeId") Integer typeId);
 
     List<NewsInfo> selectHotNews();
 
     NewsInfo selectCirNews();
+
+    NewsInfo selectNewPicture();
 
     NewsInfo selectCircleNews();
 
@@ -45,7 +53,14 @@ public interface NewsInfoMapper {
 
     int updateByAuthor(NewsInfo newsInfo);
 
-    int updateByIdByAdmin(@Param("id")Integer id);
+    int updateByIdByAdmin(@Param("id") Integer id);
 
-    NewsInfo selectNewsById(@Param("id")Integer id);
+    NewsInfo selectNewsById(@Param("id") Integer id);
+
+    int addHits(@Param("id") Integer id);
+
+    List<NewsInfo> selectguideNews(@Param("typeId") Integer typeId);
+
+
+
 }
